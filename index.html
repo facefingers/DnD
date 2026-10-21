@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таборакс - Лист персонажа</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Шапка персонажа -->
+        <header class="header">
+            <button class="back-btn" onclick="openCharacterList()">👥</button>
+            <h1 class="character-name" id="character-name-display">Рикс (Крик Солнца)</h1>
+            <div class="header-controls">
+                <button class="header-icon-btn" id="lang-btn" onclick="toggleLanguage()" title="Language">RU</button>
+                <button class="header-icon-btn" id="online-btn" onclick="toggleOnlineMode()" title="Online mode">🎲</button>
+                <button class="header-icon-btn" id="theme-btn" onclick="toggleTheme()" title="Theme">🌙</button>
+            </div>
+        </header>
+
+        <!-- Основные показатели -->
+        <div class="main-stats">
+            <div class="main-stat clickable" onclick="levelUp()">
+                <div class="main-stat-label" data-i18n="level-short">Уровень</div>
+                <div class="main-stat-value" id="level-display">3</div>
+            </div>
+            <div class="main-stat clickable" onclick="openHPModal()">
+                <div class="main-stat-label">Хиты</div>
+                <div class="main-stat-value">
+                    <span id="hp-current-display">13</span>
+                    <span class="hp-max">/<span id="hp-max-display">13</span></span>
+                </div>
+            </div>
+            <div class="main-stat">
+                <div class="main-stat-label">КБ</div>
+                <div class="main-stat-value" id="ac-display">14</div>
+            </div>
+            <div class="main-stat">
+                <div class="main-stat-label">Иниц</div>
+                <div class="main-stat-value" id="init-display">+3</div>
+            </div>
+            <div class="main-stat">
+                <div class="main-stat-label">Скор</div>
+                <div class="main-stat-value">30</div>
+            </div>
+        </div>
+
+        <!-- Вкладки навигации -->
+        <nav class="tabs">
+            <button class="tab active" data-tab="stats" data-i18n="tab-stats">Статы</button>
+            <button class="tab" data-tab="actions" data-i18n="tab-actions">Действия</button>
+            <button class="tab" data-tab="spells" data-i18n="tab-spells">Заклинания</button>
+            <button class="tab" data-tab="inventory" data-i18n="tab-inventory">Инвентарь</button>
+            <button class="tab" data-tab="training" data-i18n="tab-training">Обучение</button>
+            <button class="tab" data-tab="features" data-i18n="tab-features">Черты</button>
+            <button class="tab" data-tab="notes" data-i18n="tab-notes">Заметки</button>
+        </nav>
+
+        <!-- Контент вкладок -->
+        <main class="content">
+            <!-- Статы -->
+            <section id="stats" class="tab-content active">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="section-stats">Характеристики</h2>
+                    <button class="add-btn" onclick="openStatsModal()" data-i18n="edit-stats">⚙️ Изменить</button>
+                </div>
+                <!-- Таблица характеристик -->
+                <table class="abilities-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>СЛ</th>
+                            <th>ЛВ</th>
+                            <th>ТЛ</th>
+                            <th>ИН</th>
+                            <th>МД</th>
+                            <th>ХР</th>
+                        </tr>
+                    </thead>
+                    <tbody id="abilities-body">
+                        <tr>
+                            <td class="row-label" data-i18n="value">Значение</td>
+                            <td id="str-score">10</td>
+                            <td id="dex-score">16</td>
+                            <td id="con-score">10</td>
+                            <td id="int-score">12</td>
+                            <td id="wis-score">13</td>
+                            <td id="cha-score">15</td>
+                        </tr>
+                        <tr class="modifier-row">
+                            <td class="row-label" data-i18n="modifier">Модиф.</td>
+                            <td id="str-mod">0</td>
+                            <td class="highlight" id="dex-mod">+3</td>
+                            <td id="con-mod">0</td>
+                            <td id="int-mod">+1</td>
+                            <td id="wis-mod">+1</td>
+                            <td id="cha-mod">+2</td>
+                        </tr>
+                        <tr>
+                            <td class="row-label" data-i18n="saving-throw">Спасбросок</td>
+                            <td id="str-save">0</td>
+                            <td class="highlight" id="dex-save">+5</td>
+                            <td id="con-save">0</td>
+                            <td class="highlight" id="int-save">+3</td>
+                            <td id="wis-save">+1</td>
+                            <td id="cha-save">+2</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Бонусы -->
+                <div class="info-boxes">
+                    <div class="info-box">
+                        <div class="info-box-value" id="prof-bonus-display">+2</div>
+                        <div class="info-box-label" data-i18n="proficiency-bonus">Бонус мастерства</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-box-value" id="passive-perception">15</div>
+                        <div class="info-box-label" data-i18n="passive-perception">Пассивная внимательность</div>
+                    </div>
+                </div>
+
+                <!-- Навыки -->
+                <div class="skills-section" id="skills-list">
+                    <!-- Заполняется JS -->
+                </div>
+            </section>
+
+            <!-- Действия -->
+            <section id="actions" class="tab-content">
+                <h2 class="section-title" data-i18n="section-attacks">Атаки</h2>
+
+                <div class="action-card weapon">
+                    <div class="action-header">
+                        <h4>🗡️ Кинжал</h4>
+                        <div class="weapon-rolls">
+                            <button class="roll-btn-inline" onclick="rollAttack('Кинжал', 'dex')">⚔️</button>
+                            <button class="roll-btn-inline" onclick="rollDamage('Кинжал', 1, 4, 'dex', 'колющий')">💥</button>
+                        </div>
+                    </div>
+                    <p class="action-desc" id="dagger-hit-calc"></p>
+                    <p class="action-desc" id="dagger-dmg-calc"></p>
+                    <p class="action-desc">Лёгкое, метательное, фехтовальное (20/60 фт)</p>
+                </div>
+
+                <div class="action-card weapon">
+                    <div class="action-header">
+                        <h4>⚔️ Короткий меч</h4>
+                        <div class="weapon-rolls">
+                            <button class="roll-btn-inline" onclick="rollAttack('Короткий меч', 'dex')">⚔️</button>
+                            <button class="roll-btn-inline" onclick="rollDamage('Короткий меч', 1, 6, 'dex', 'колющий')">💥</button>
+                        </div>
+                    </div>
+                    <p class="action-desc" id="sword-hit-calc"></p>
+                    <p class="action-desc" id="sword-dmg-calc"></p>
+                    <p class="action-desc">Лёгкое, фехтовальное</p>
+                </div>
+
+                <div class="action-card weapon">
+                    <div class="action-header">
+                        <h4>🐾 Кошачьи когти</h4>
+                        <div class="weapon-rolls">
+                            <button class="roll-btn-inline" onclick="rollAttack('Когти', 'dex')">⚔️</button>
+                            <button class="roll-btn-inline" onclick="rollDamage('Когти', 1, 4, 'str', 'рубящий')">💥</button>
+                        </div>
+                    </div>
+                    <p class="action-desc" id="claws-hit-calc"></p>
+                    <p class="action-desc" id="claws-dmg-calc"></p>
+                    <p class="action-desc">Расовая способность. Лазание 20 футов + атака</p>
+                </div>
+
+                <h2 class="section-title" data-i18n="section-combat">Действия в бою</h2>
+
+                <div class="action-card">
+                    <div class="action-header">
+                        <h4>🎯 Скрытая атака <span class="level-badge" id="sneak-level">3 ур</span></h4>
+                        <button class="roll-btn-inline" onclick="rollSneakAttack()">🎲</button>
+                    </div>
+                    <p class="action-desc" id="sneak-calc"></p>
+                    <p class="action-desc">Раз в ход при преимуществе на атаку ИЛИ если рядом с целью (в 5 фт) союзник, который не недееспособен (без помехи на атаку).</p>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-header">
+                        <h4>⚡ Хитрое действие</h4>
+                    </div>
+                    <p class="action-desc"><strong>Бонусное действие:</strong> Рывок, Отход или Засада (Скрыться)</p>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-header">
+                        <h4>🏃 Кошачье проворство</h4>
+                    </div>
+                    <p class="action-desc"><strong>Использование:</strong> 1 раз между отдыхами</p>
+                    <p class="action-desc">Удваивает скорость (30 → 60 фт) до конца хода. Восстанавливается после 0 футов движения в один из ваших ходов.</p>
+                </div>
+            </section>
+
+            <!-- Заклинания -->
+            <section id="spells" class="tab-content">
+                <h2 class="section-title" data-i18n="section-spellcasting">Характеристики заклинателя</h2>
+
+                <div class="spell-stats">
+                    <div class="spell-stat" id="spell-dc-calc">
+                        <strong data-i18n="spell-dc">СЛ заклинаний</strong>: Загрузка...
+                    </div>
+                    <div class="spell-stat" id="spell-attack-calc">
+                        <strong data-i18n="spell-attack">Бонус атаки</strong>: Загрузка...
+                    </div>
+                </div>
+
+                <h3 class="subsection-title" data-i18n="cantrips">Заговоры (неограниченно)</h3>
+
+                <div class="action-card">
+                    <div class="action-header">
+                        <h4>🎯 Улучшенная волшебная рука</h4>
+                    </div>
+                    <p class="action-desc"><strong>Действие/Бонусное • 30 фт • 1 мин</strong></p>
+                    <p class="action-desc">Призрачная рука. Воровские инструменты, кража, Ловкость рук на расстоянии, открывание замков.</p>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-header">
+                        <h4>✨ Малая иллюзия</h4>
+                    </div>
+                    <p class="action-desc"><strong>Действие • 30 фт • 1 мин</strong></p>
+                    <p class="action-desc">Звук или изображение 5 фт. Расследование против СЛ <span id="spell-dc-inline">11</span>.</p>
+                </div>
+
+                <div class="action-card">
+                    <div class="action-header">
+                        <h4>🎪 Фокусы</h4>
+                    </div>
+                    <p class="action-desc"><strong>Действие • 10 фт • до 1 ч</strong></p>
+                    <p class="action-desc">Магические трюки: свечи, температура еды, цвет/метка/звук. До 3 эффектов.</p>
+                </div>
+
+                <h3 class="subsection-title" data-i18n="level-1-spells">Заклинания 1 уровня</h3>
+
+                <div class="spell-slots">
+                    <strong><span data-i18n="spell-slots">Ячейки</span> (<span data-i18n="total">всего</span> <span id="spell-slots-total">2</span>):</strong>
+                    <label class="slot"><input type="checkbox" class="spell-slot-check"> <span>1</span></label>
+                    <label class="slot"><input type="checkbox" class="spell-slot-check"> <span>2</span></label>
+                </div>
+
+                <div class="action-card expandable">
+                    <div class="action-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <h4>😴 Усыпление</h4>
+                        <button class="roll-btn-inline" onclick="event.stopPropagation(); rollSpell('Усыпление', 5, 8)">🎲 5к8</button>
+                    </div>
+                    <div class="action-details">
+                        <p><strong>Действие • 90 фт • 1 мин</strong></p>
+                        <p>5к8 хитов существ усыпляются. Начинайте с наименьших хитов. Просыпаются при уроне.</p>
+                    </div>
+                </div>
+
+                <div class="action-card expandable">
+                    <div class="action-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <h4>🎭 Маскировка</h4>
+                    </div>
+                    <div class="action-details">
+                        <p><strong>Действие • на себя • 1 ч</strong></p>
+                        <p>Иллюзия внешнего вида. Расследование против СЛ <span id="spell-dc-inline2">11</span>.</p>
+                    </div>
+                </div>
+
+                <div class="action-card expandable">
+                    <div class="action-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <h4>✨ Сверкающие брызги</h4>
+                        <button class="roll-btn-inline" onclick="event.stopPropagation(); rollSpell('Сверкающие брызги', 6, 10)">🎲 6к10</button>
+                    </div>
+                    <div class="action-details">
+                        <p><strong>Действие • конус 15 фт • момент</strong></p>
+                        <p>6к10. Существа с хитами ≤ результата ослепляются. +2к10 за уровень ячейки.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Инвентарь -->
+            <section id="inventory" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title" data-i18n="tab-inventory">Инвентарь</h2>
+                    <button class="add-btn" onclick="toggleAddItemForm()" data-i18n="add-item">+ Добавить</button>
+                </div>
+
+                <!-- Форма добавления -->
+                <div id="add-item-form" class="add-item-form" style="display: none;">
+                    <input type="text" id="item-name-input" placeholder="Название предмета" class="form-input">
+                    <select id="item-type-input" class="form-input">
+                        <option value="weapon">Оружие</option>
+                        <option value="armor">Броня</option>
+                        <option value="tool">Инструменты</option>
+                        <option value="consumable">Расходники</option>
+                        <option value="ingredient">Ингредиенты</option>
+                        <option value="misc">Разное</option>
+                    </select>
+                    <div class="form-row">
+                        <input type="text" id="item-detail-input" placeholder="Описание" class="form-input">
+                        <input type="number" id="item-count-input" placeholder="×" class="form-input small" min="1" value="1">
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="item-equipped-input">
+                        Экипировано
+                    </label>
+
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="item-learnable-input" onchange="toggleLearnableFields()">
+                        Можно изучать/тренироваться
+                    </label>
+
+                    <div id="learnable-fields" style="display: none;">
+                        <label>Цель (очков для овладения):</label>
+                        <input type="number" id="item-target-input" placeholder="50" class="form-input" min="1" value="50">
+
+                        <label>Бросок кости:</label>
+                        <select id="item-dice-input" class="form-input">
+                            <option value="1d4">1к4</option>
+                            <option value="1d6">1к6</option>
+                            <option value="1d8">1к8</option>
+                            <option value="1d10">1к10</option>
+                            <option value="1d12">1к12</option>
+                        </select>
+
+                        <label>Модификатор:</label>
+                        <select id="item-ability-input" class="form-input">
+                            <option value="str">Сила (СЛ)</option>
+                            <option value="dex">Ловкость (ЛВ)</option>
+                            <option value="con">Телосложение (ТЛ)</option>
+                            <option value="int" selected>Интеллект (ИН)</option>
+                            <option value="wis">Мудрость (МД)</option>
+                            <option value="cha">Харизма (ХР)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button class="btn-save" onclick="addInventoryItem()" data-i18n="save-btn">Сохранить</button>
+                        <button class="btn-cancel" onclick="toggleAddItemForm()" data-i18n="cancel-btn">Отмена</button>
+                    </div>
+                </div>
+
+                <div id="inventory-container">
+                    <!-- Заполняется JS -->
+                </div>
+            </section>
+
+            <!-- Обучение -->
+            <section id="training" class="tab-content">
+                <h2 class="section-title" data-i18n="section-training">Изучаемые предметы</h2>
+                <p class="training-description" data-i18n="training-desc">Тренируйтесь с этими предметами во время длинных отдыхов</p>
+
+                <div class="section-header">
+                    <button class="add-btn full-width" onclick="trainAll()" data-i18n="train-all">Тренировать все</button>
+                </div>
+
+                <div id="training-container">
+                    <!-- Заполняется JS -->
+                </div>
+            </section>
+
+            <!-- Черты -->
+            <section id="features" class="tab-content">
+                <h2 class="section-title" data-i18n="section-racial">Расовые черты (Таборакс)</h2>
+
+                <div class="feature-card">
+                    <h4>🌙 Тёмное зрение (60 фт)</h4>
+                    <p>В темноте видите как при тусклом освещении (оттенки серого).</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🐾 Кошачьи когти</h4>
+                    <p>Безоружная атака 1к4 + Сила рубящим. Скорость лазания 20 фт.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🏃 Кошачье проворство</h4>
+                    <p>Удвоение скорости в бою (1 раз). Восстановление после 0 фт движения.</p>
+                </div>
+
+                <h2 class="section-title" data-i18n="section-class">Классовые черты (Разбойник)</h2>
+
+                <div class="feature-card">
+                    <h4>⭐ Компетентность (Экспертиза)</h4>
+                    <p>Удвоенный бонус мастерства для: Восприятие, Убеждение</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🎯 Скрытая атака</h4>
+                    <p>Дополнительный урон раз в ход при определённых условиях. Растёт с уровнем.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>⚡ Хитрое действие</h4>
+                    <p>Бонусное действие: Рывок, Отход, Засада.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🗣️ Воровской жаргон</h4>
+                    <p>Секретный язык воров. Зашифрованные сообщения, специальные символы.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🎯 Мистический плут</h4>
+                    <p>Заклинания от Интеллекта. Улучшенная волшебная рука.</p>
+                </div>
+
+                <h2 class="section-title" data-i18n="section-personality">Личность</h2>
+
+                <div class="feature-card">
+                    <h4>🎭 Черты</h4>
+                    <p>Осторожен и уважителен в делах, находясь в заброшенных землях.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>💎 Идеалы</h4>
+                    <p>Свобода - величайшее сокровище. Никто не отберёт её снова.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>🔗 Привязанности</h4>
+                    <p>Притворяюсь, что не понимаю местный язык, чтобы избежать нежелательных взаимодействий.</p>
+                </div>
+            </section>
+
+            <!-- Заметки -->
+            <section id="notes" class="tab-content">
+                <h2 class="section-title">Общая информация</h2>
+
+                <div class="note-card">
+                    <h4>Владение оружием</h4>
+                    <p>Простое оружие, ручные арбалеты, длинный меч, рапира, короткий меч</p>
+                </div>
+
+                <div class="note-card">
+                    <h4>Языки</h4>
+                    <p>Общий, Эльфийский, Сильван</p>
+                </div>
+
+                <div class="note-card">
+                    <h4>Броски в бою</h4>
+                    <p><strong>1. Инициатива:</strong> 1к20 + Ловкость</p>
+                    <p><strong>2. Попадание:</strong> 1к20 + мод. характеристики + мастерство</p>
+                    <p><strong>3. Урон:</strong> кость оружия + модификатор</p>
+                    <p><strong>Крит (20):</strong> урон ×2</p>
+                    <p><strong>Провал (1):</strong> автопромах</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Модальное окно списка персонажей -->
+        <div id="character-list-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 data-i18n="my-characters">Мои персонажи</h2>
+                    <button class="close-btn" onclick="closeCharacterList()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="characters-list"></div>
+                    <button class="btn-save full-width" onclick="openCharacterCreator()" data-i18n="create-character">+ Создать нового персонажа</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно создания персонажа -->
+        <div id="character-creator-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Создание персонажа</h2>
+                    <button class="close-btn" onclick="closeCharacterCreator()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div id="creator-step-1" class="creator-step active">
+                        <h3>Шаг 1: Основная информация</h3>
+                        <label>Имя персонажа:</label>
+                        <input type="text" id="new-char-name" class="form-input" placeholder="Например: Рикс (Крик Солнца)">
+
+                        <label>Раса:</label>
+                        <select id="new-char-race" class="form-input">
+                            <option value="tabaxi">Таборакс (Tabaxi)</option>
+                            <option value="human">Человек</option>
+                            <option value="elf">Эльф</option>
+                            <option value="dwarf">Дварф</option>
+                            <option value="halfling">Полурослик</option>
+                            <option value="dragonborn">Драконорождённый</option>
+                            <option value="tiefling">Тифлинг</option>
+                        </select>
+
+                        <label>Класс:</label>
+                        <select id="new-char-class" class="form-input">
+                            <option value="rogue">Разбойник (Плут)</option>
+                            <option value="fighter">Воин</option>
+                            <option value="wizard">Волшебник</option>
+                            <option value="cleric">Жрец</option>
+                            <option value="ranger">Следопыт</option>
+                            <option value="paladin">Паладин</option>
+                            <option value="bard">Бард</option>
+                        </select>
+
+                        <label>Уровень:</label>
+                        <input type="number" id="new-char-level" min="1" max="20" value="1" class="form-input">
+
+                        <button class="btn-save full-width" onclick="goToCreatorStep(2)">Далее →</button>
+                    </div>
+
+                    <div id="creator-step-2" class="creator-step">
+                        <h3>Шаг 2: Характеристики</h3>
+                        <div class="stat-inputs">
+                            <label>Сила (СЛ): <input type="number" id="new-str" min="1" max="30" value="10"></label>
+                            <label>Ловкость (ЛВ): <input type="number" id="new-dex" min="1" max="30" value="10"></label>
+                            <label>Телосложение (ТЛ): <input type="number" id="new-con" min="1" max="30" value="10"></label>
+                            <label>Интеллект (ИН): <input type="number" id="new-int" min="1" max="30" value="10"></label>
+                            <label>Мудрость (МД): <input type="number" id="new-wis" min="1" max="30" value="10"></label>
+                            <label>Харизма (ХР): <input type="number" id="new-cha" min="1" max="30" value="10"></label>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button class="btn-cancel" onclick="goToCreatorStep(1)">← Назад</button>
+                            <button class="btn-save" onclick="goToCreatorStep(3)">Далее →</button>
+                        </div>
+                    </div>
+
+                    <div id="creator-step-3" class="creator-step">
+                        <h3>Шаг 3: Дополнительно</h3>
+
+                        <label>КД (Класс Доспеха):</label>
+                        <input type="number" id="new-ac" min="1" max="30" value="10" class="form-input">
+
+                        <label>Максимум хитов:</label>
+                        <input type="number" id="new-hp-max" min="1" max="500" value="10" class="form-input">
+
+                        <div class="form-buttons">
+                            <button class="btn-cancel" onclick="goToCreatorStep(2)">← Назад</button>
+                            <button class="btn-save" onclick="createNewCharacter()">Создать персонажа</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно HP -->
+        <div id="hp-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Хиты</h2>
+                    <button class="close-btn" onclick="closeHPModal()">×</button>
+                </div>
+                <div class="modal-body hp-modal-body">
+                    <div class="hp-row">
+                        <label>Здоровье</label>
+                        <div class="hp-value" id="hp-modal-current">13</div>
+                    </div>
+                    <div class="hp-row">
+                        <label>Максимум</label>
+                        <div class="hp-value" id="hp-modal-max">13</div>
+                    </div>
+                    <div class="hp-row">
+                        <label>Временное</label>
+                        <input type="number" id="hp-temp" value="0" min="0" class="hp-input">
+                    </div>
+
+                    <div class="hit-dice-section">
+                        <label>Кость хитов к8</label>
+                        <div class="item-controls">
+                            <button class="item-control-btn" onclick="changeHitDice(-1)">−</button>
+                            <span class="item-count" id="hit-dice-count">3</span>
+                            <button class="item-control-btn" onclick="changeHitDice(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="hp-buttons">
+                        <button class="btn-heal" onclick="healHP()">Лечение</button>
+                        <div class="hp-divider"></div>
+                        <button class="btn-damage" onclick="damageHP()">Урон</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно настроек персонажа -->
+        <div id="stats-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Характеристики</h2>
+                    <button class="close-btn" onclick="closeStatsModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="stat-inputs">
+                        <label>Сила (СЛ): <input type="number" id="str-input" min="1" max="30" value="10"></label>
+                        <label>Ловкость (ЛВ): <input type="number" id="dex-input" min="1" max="30" value="16"></label>
+                        <label>Телосложение (ТЛ): <input type="number" id="con-input" min="1" max="30" value="10"></label>
+                        <label>Интеллект (ИН): <input type="number" id="int-input" min="1" max="30" value="12"></label>
+                        <label>Мудрость (МД): <input type="number" id="wis-input" min="1" max="30" value="13"></label>
+                        <label>Харизма (ХР): <input type="number" id="cha-input" min="1" max="30" value="15"></label>
+                    </div>
+
+                    <label>КД (Класс Доспеха):</label>
+                    <input type="number" id="ac-input" min="1" max="30" value="14" class="form-input">
+
+                    <label>Максимум хитов:</label>
+                    <input type="number" id="hp-max-input" min="1" max="500" value="13" class="form-input">
+
+                    <button class="btn-save full-width" onclick="saveCharacterStats()">Сохранить</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Результаты бросков -->
+        <div id="roll-results" class="roll-results"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

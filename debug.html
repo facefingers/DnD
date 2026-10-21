@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+        }
+        button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            background: #cd9c6e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+        #log {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f0f0f0;
+            border-radius: 4px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug Test - Проверка кликов</h1>
+
+    <button onclick="testClick('Button 1')">Кнопка 1</button>
+    <button onclick="testClick('Button 2')">Кнопка 2</button>
+    <button onclick="testClick('Button 3')">Кнопка 3</button>
+
+    <div id="log"></div>
+
+    <script>
+        function testClick(name) {
+            const log = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.textContent = `✓ ${new Date().toLocaleTimeString()} - ${name} нажата!`;
+            log.appendChild(entry);
+            console.log(`${name} clicked`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('✓ Page loaded');
+            const log = document.getElementById('log');
+            log.innerHTML = '<div>✓ Страница загружена. Нажмите на кнопки выше.</div>';
+        });
+
+        // Проверка на блокирующие элементы
+        document.addEventListener('click', (e) => {
+            console.log('Click detected at:', e.clientX, e.clientY);
+            console.log('Target:', e.target);
+        });
+    </script>
+</body>
+</html>
