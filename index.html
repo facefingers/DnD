@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Таборакс - Лист персонажа</title>
+    <title>Интерактивный лист персонажа</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-variant2.css">
+    <link rel="stylesheet" href="style-updates.css">
 </head>
 <body>
     <div class="app">
@@ -13,16 +15,15 @@
             <button class="back-btn" onclick="openCharacterList()">👥</button>
             <h1 class="character-name" id="character-name-display">Рикс (Крик Солнца)</h1>
             <div class="header-controls">
-                <button class="header-icon-btn" id="lang-btn" onclick="toggleLanguage()" title="Language">RU</button>
-                <button class="header-icon-btn" id="online-btn" onclick="toggleOnlineMode()" title="Online mode">🎲</button>
-                <button class="header-icon-btn" id="theme-btn" onclick="toggleTheme()" title="Theme">🌙</button>
+                <button class="header-icon-btn" id="online-btn" onclick="toggleOnlineMode()" title="Онлайн режим">🎲</button>
+                <button class="header-icon-btn" id="theme-btn" onclick="toggleTheme()" title="Тема">🌙</button>
             </div>
         </header>
 
         <!-- Основные показатели -->
         <div class="main-stats">
             <div class="main-stat clickable" onclick="levelUp()">
-                <div class="main-stat-label" data-i18n="level-short">Уровень</div>
+                <div class="main-stat-label">Уровень</div>
                 <div class="main-stat-value" id="level-display">3</div>
             </div>
             <div class="main-stat clickable" onclick="openHPModal()">
@@ -46,15 +47,53 @@
             </div>
         </div>
 
+        <!-- Дополнительные показатели и отдых -->
+        <div class="secondary-stats">
+            <!-- Вдохновение -->
+            <div class="stat-card">
+                <div class="stat-card-label">Вдохновение</div>
+                <div class="stat-card-value">
+                    <button class="inspiration-btn" id="inspiration-player" onclick="toggleInspirationPlayer(event)" title="Вдохновение игрока">
+                        <span class="inspiration-icon">✨</span>
+                    </button>
+                    <button class="inspiration-btn" id="inspiration-dm" onclick="toggleInspirationDM(event)" title="Вдохновение мастера">
+                        <span class="inspiration-icon">🎲</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Истощение -->
+            <div class="stat-card clickable" onclick="openExhaustionModal()">
+                <div class="stat-card-label">Истощение</div>
+                <div class="stat-card-value" id="exhaustion-display">0</div>
+            </div>
+
+            <!-- Состояния -->
+            <div class="stat-card clickable" onclick="openConditionsModal()">
+                <div class="stat-card-label">Состояния</div>
+                <div class="stat-card-value" id="conditions-count">0</div>
+            </div>
+        </div>
+
+        <!-- Отдых -->
+        <div class="rest-bar">
+            <button class="rest-bar-btn short" onclick="shortRest()">
+                <span class="rest-bar-icon">☕</span>
+                <span class="rest-bar-label">Короткий отдых</span>
+            </button>
+            <button class="rest-bar-btn long" onclick="longRest()">
+                <span class="rest-bar-icon">🛏️</span>
+                <span class="rest-bar-label">Длительный отдых</span>
+            </button>
+        </div>
+
         <!-- Вкладки навигации -->
         <nav class="tabs">
-            <button class="tab active" data-tab="stats" data-i18n="tab-stats">Статы</button>
-            <button class="tab" data-tab="actions" data-i18n="tab-actions">Действия</button>
-            <button class="tab" data-tab="spells" data-i18n="tab-spells">Заклинания</button>
-            <button class="tab" data-tab="inventory" data-i18n="tab-inventory">Инвентарь</button>
-            <button class="tab" data-tab="training" data-i18n="tab-training">Обучение</button>
-            <button class="tab" data-tab="features" data-i18n="tab-features">Черты</button>
-            <button class="tab" data-tab="notes" data-i18n="tab-notes">Заметки</button>
+            <button class="tab active" data-tab="stats">Статы</button>
+            <button class="tab" data-tab="combat">Бой</button>
+            <button class="tab" data-tab="spells">Магия</button>
+            <button class="tab" data-tab="inventory">Инвентарь</button>
+            <button class="tab" data-tab="notes">Заметки и черты</button>
         </nav>
 
         <!-- Контент вкладок -->
@@ -62,8 +101,8 @@
             <!-- Статы -->
             <section id="stats" class="tab-content active">
                 <div class="section-header">
-                    <h2 class="section-title" data-i18n="section-stats">Характеристики</h2>
-                    <button class="add-btn" onclick="openStatsModal()" data-i18n="edit-stats">⚙️ Изменить</button>
+                    <h2 class="section-title">Характеристики</h2>
+                    <button class="add-btn" onclick="openStatsModal()">⚙️ Изменить</button>
                 </div>
                 <!-- Таблица характеристик -->
                 <table class="abilities-table">
@@ -80,7 +119,7 @@
                     </thead>
                     <tbody id="abilities-body">
                         <tr>
-                            <td class="row-label" data-i18n="value">Значение</td>
+                            <td class="row-label">Значение</td>
                             <td id="str-score">10</td>
                             <td id="dex-score">16</td>
                             <td id="con-score">10</td>
@@ -89,7 +128,7 @@
                             <td id="cha-score">15</td>
                         </tr>
                         <tr class="modifier-row">
-                            <td class="row-label" data-i18n="modifier">Модиф.</td>
+                            <td class="row-label">Модиф.</td>
                             <td id="str-mod">0</td>
                             <td class="highlight" id="dex-mod">+3</td>
                             <td id="con-mod">0</td>
@@ -98,7 +137,7 @@
                             <td id="cha-mod">+2</td>
                         </tr>
                         <tr>
-                            <td class="row-label" data-i18n="saving-throw">Спасбросок</td>
+                            <td class="row-label">Спасбросок</td>
                             <td id="str-save">0</td>
                             <td class="highlight" id="dex-save">+5</td>
                             <td id="con-save">0</td>
@@ -113,11 +152,11 @@
                 <div class="info-boxes">
                     <div class="info-box">
                         <div class="info-box-value" id="prof-bonus-display">+2</div>
-                        <div class="info-box-label" data-i18n="proficiency-bonus">Бонус мастерства</div>
+                        <div class="info-box-label">Бонус мастерства</div>
                     </div>
                     <div class="info-box">
                         <div class="info-box-value" id="passive-perception">15</div>
-                        <div class="info-box-label" data-i18n="passive-perception">Пассивная внимательность</div>
+                        <div class="info-box-label">Пассивная внимательность</div>
                     </div>
                 </div>
 
@@ -127,9 +166,9 @@
                 </div>
             </section>
 
-            <!-- Действия -->
-            <section id="actions" class="tab-content">
-                <h2 class="section-title" data-i18n="section-attacks">Атаки</h2>
+            <!-- Бой (объединено: атаки + памятка) -->
+            <section id="combat" class="tab-content">
+                <h2 class="section-title">Атаки</h2>
 
                 <div class="action-card weapon">
                     <div class="action-header">
@@ -170,7 +209,7 @@
                     <p class="action-desc">Расовая способность. Лазание 20 футов + атака</p>
                 </div>
 
-                <h2 class="section-title" data-i18n="section-combat">Действия в бою</h2>
+                <h2 class="section-title">Действия в бою</h2>
 
                 <div class="action-card">
                     <div class="action-header">
@@ -195,59 +234,162 @@
                     <p class="action-desc"><strong>Использование:</strong> 1 раз между отдыхами</p>
                     <p class="action-desc">Удваивает скорость (30 → 60 фт) до конца хода. Восстанавливается после 0 футов движения в один из ваших ходов.</p>
                 </div>
+
+                <!-- Памятка боя -->
+                <h2 class="section-title">Памятка боя</h2>
+
+                <div class="combat-guide">
+                    <div class="combat-phase">
+                        <h3 class="combat-phase-title">1️⃣ Инициатива</h3>
+                        <p class="combat-desc">В начале боя все бросают к20 + модификатор Ловкости (<span id="init-bonus-guide">+3</span>). Ходите по очереди от большего к меньшему.</p>
+                    </div>
+
+                    <div class="combat-phase">
+                        <h3 class="combat-phase-title">2️⃣ Ваш ход (в раунде)</h3>
+                        <p class="combat-desc">В свой ход вы можете:</p>
+
+                        <div class="combat-action-type">
+                            <h4 class="action-type-title">⚔️ Действие (Action)</h4>
+                            <ul class="action-list">
+                                <li><strong>Атака</strong> — атаковать оружием или заклинанием</li>
+                                <li><strong>Сотворение заклинания</strong> — если время произнесения «1 действие»</li>
+                                <li><strong>Рывок</strong> — удвоить скорость передвижения в этом ходу</li>
+                                <li><strong>Отход</strong> — ваше движение не провоцирует атаки</li>
+                                <li><strong>Засада (Скрыться)</strong> — проверка Скрытности</li>
+                                <li><strong>Помощь</strong> — дать союзнику преимущество на следующую проверку</li>
+                                <li><strong>Готовность</strong> — подготовить действие на триггер</li>
+                                <li><strong>Использование предмета</strong> — зелье, свиток и т.д.</li>
+                            </ul>
+                        </div>
+
+                        <div class="combat-action-type">
+                            <h4 class="action-type-title">⚡ Бонусное действие (Bonus Action)</h4>
+                            <p class="combat-desc"><em>Используется только если у вас есть способность/заклинание требующее бонусное действие</em></p>
+                            <ul class="action-list">
+                                <li><strong>Хитрое действие</strong> (Плут) — Рывок, Отход или Засада</li>
+                                <li><strong>Улучшенная волшебная рука</strong> — управление рукой</li>
+                                <li><strong>Атака вторым оружием</strong> — если держите 2 лёгких оружия (без модификатора урона)</li>
+                            </ul>
+                        </div>
+
+                        <div class="combat-action-type">
+                            <h4 class="action-type-title">🚶 Движение (Movement)</h4>
+                            <p class="combat-desc">До <strong>30 футов</strong> (можно разбить: 10 фт → действие → 20 фт)</p>
+                        </div>
+
+                        <div class="combat-action-type">
+                            <h4 class="action-type-title">🗣️ Бесплатное взаимодействие</h4>
+                            <ul class="action-list">
+                                <li>Достать/убрать оружие</li>
+                                <li>Открыть/закрыть дверь</li>
+                                <li>Что-то сказать (несколько слов)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="combat-phase">
+                        <h3 class="combat-phase-title">3️⃣ Реакция (Reaction)</h3>
+                        <p class="combat-desc">1 раз в раунд (восстанавливается в начале вашего хода):</p>
+                        <ul class="action-list">
+                            <li><strong>Провоцированная атака</strong> — враг выходит из зоны досягаемости без Отхода</li>
+                            <li><strong>Некоторые заклинания</strong> — например, Щит, Контрзаклинание</li>
+                        </ul>
+                    </div>
+
+                    <div class="combat-phase special">
+                        <h3 class="combat-phase-title">🎯 Преимущество и помеха</h3>
+                        <p class="combat-desc"><strong>Преимущество:</strong> бросаете 2к20, берёте больший результат</p>
+                        <p class="combat-desc"><strong>Помеха:</strong> бросаете 2к20, берёте меньший результат</p>
+                        <p class="combat-desc-small"><em>Преимущество нужно для Скрытой атаки!</em></p>
+                    </div>
+
+                    <div class="combat-phase special">
+                        <h3 class="combat-phase-title">🎲 Критические попадания и провалы</h3>
+                        <p class="combat-desc"><strong>Критическое попадание (20 на к20):</strong></p>
+                        <ul class="action-list">
+                            <li>Автоматическое попадание</li>
+                            <li>Удвоение ВСЕХ костей урона (например: 1к6+3 → 2к6+3)</li>
+                            <li>Модификаторы НЕ удваиваются, только кости</li>
+                        </ul>
+                        <p class="combat-desc"><strong>Критический провал (1 на к20):</strong></p>
+                        <ul class="action-list">
+                            <li>Автоматический промах (независимо от бонусов)</li>
+                            <li>На спасбросках от смерти считается как 2 провала</li>
+                        </ul>
+                        <p class="combat-desc-small"><em>💡 Критические попадания работают только на броски атаки, НЕ на проверки характеристик или спасброски</em></p>
+                    </div>
+
+                    <div class="combat-phase special">
+                        <h3 class="combat-phase-title">💀 Смерть и стабилизация</h3>
+                        <p class="combat-desc">При 0 ХП начинаете умирать:</p>
+                        <ul class="action-list">
+                            <li><strong>Успех:</strong> к20 ≥ 10 (3 успеха = стабилизация на 0 ХП)</li>
+                            <li><strong>Провал:</strong> к20 < 10 (3 провала = смерть)</li>
+                            <li><strong>1 на к20</strong> = 2 провала</li>
+                            <li><strong>20 на к20</strong> = восстанавливаете 1 ХП</li>
+                            <li><strong>Получение урона при 0 ХП</strong> = 1 провал (критический = 2 провала)</li>
+                        </ul>
+                    </div>
+                </div>
             </section>
 
-            <!-- Заклинания -->
+            <!-- Магия -->
             <section id="spells" class="tab-content">
-                <h2 class="section-title" data-i18n="section-spellcasting">Характеристики заклинателя</h2>
+                <h2 class="section-title">Характеристики заклинателя</h2>
 
                 <div class="spell-stats">
                     <div class="spell-stat" id="spell-dc-calc">
-                        <strong data-i18n="spell-dc">СЛ заклинаний</strong>: Загрузка...
+                        <strong>СЛ заклинаний</strong>: Загрузка...
                     </div>
                     <div class="spell-stat" id="spell-attack-calc">
-                        <strong data-i18n="spell-attack">Бонус атаки</strong>: Загрузка...
+                        <strong>Бонус атаки</strong>: Загрузка...
                     </div>
                 </div>
 
-                <h3 class="subsection-title" data-i18n="cantrips">Заговоры (неограниченно)</h3>
+                <h3 class="subsection-title">Заговоры (неограниченно)</h3>
 
-                <div class="action-card">
+                <div class="action-card spell-cantrip">
                     <div class="action-header">
                         <h4>🎯 Улучшенная волшебная рука</h4>
+                        <span class="spell-level-badge badge-cantrip">Заговор</span>
                     </div>
                     <p class="action-desc"><strong>Действие/Бонусное • 30 фт • 1 мин</strong></p>
                     <p class="action-desc">Призрачная рука. Воровские инструменты, кража, Ловкость рук на расстоянии, открывание замков.</p>
                 </div>
 
-                <div class="action-card">
+                <div class="action-card spell-cantrip">
                     <div class="action-header">
                         <h4>✨ Малая иллюзия</h4>
+                        <span class="spell-level-badge badge-cantrip">Заговор</span>
                     </div>
                     <p class="action-desc"><strong>Действие • 30 фт • 1 мин</strong></p>
-                    <p class="action-desc">Звук или изображение 5 фт. Расследование против СЛ <span id="spell-dc-inline">11</span>.</p>
+                    <p class="action-desc">Звук или изображение 5 фт. Расследование (Проницательность) против СЛ <span id="spell-dc-inline">11</span>.</p>
                 </div>
 
-                <div class="action-card">
+                <div class="action-card spell-cantrip">
                     <div class="action-header">
                         <h4>🎪 Фокусы</h4>
+                        <span class="spell-level-badge badge-cantrip">Заговор</span>
                     </div>
                     <p class="action-desc"><strong>Действие • 10 фт • до 1 ч</strong></p>
                     <p class="action-desc">Магические трюки: свечи, температура еды, цвет/метка/звук. До 3 эффектов.</p>
                 </div>
 
-                <h3 class="subsection-title" data-i18n="level-1-spells">Заклинания 1 уровня</h3>
+                <h3 class="subsection-title">Заклинания 1 уровня</h3>
 
                 <div class="spell-slots">
-                    <strong><span data-i18n="spell-slots">Ячейки</span> (<span data-i18n="total">всего</span> <span id="spell-slots-total">2</span>):</strong>
+                    <strong><span>Ячейки</span> (<span>всего</span> <span id="spell-slots-total">2</span>):</strong>
                     <label class="slot"><input type="checkbox" class="spell-slot-check"> <span>1</span></label>
                     <label class="slot"><input type="checkbox" class="spell-slot-check"> <span>2</span></label>
                 </div>
 
-                <div class="action-card expandable">
+                <div class="action-card spell-level-1 expandable">
                     <div class="action-header" onclick="this.parentElement.classList.toggle('expanded')">
                         <h4>😴 Усыпление</h4>
-                        <button class="roll-btn-inline" onclick="event.stopPropagation(); rollSpell('Усыпление', 5, 8)">🎲 5к8</button>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="spell-level-badge badge-spell-1">1 ур</span>
+                            <button class="roll-btn-inline" onclick="event.stopPropagation(); rollSpell('Усыпление', 5, 8)">🎲 5к8</button>
+                        </div>
                     </div>
                     <div class="action-details">
                         <p><strong>Действие • 90 фт • 1 мин</strong></p>
@@ -255,20 +397,24 @@
                     </div>
                 </div>
 
-                <div class="action-card expandable">
+                <div class="action-card spell-level-1 expandable">
                     <div class="action-header" onclick="this.parentElement.classList.toggle('expanded')">
                         <h4>🎭 Маскировка</h4>
+                        <span class="spell-level-badge badge-spell-1">1 ур</span>
                     </div>
                     <div class="action-details">
                         <p><strong>Действие • на себя • 1 ч</strong></p>
-                        <p>Иллюзия внешнего вида. Расследование против СЛ <span id="spell-dc-inline2">11</span>.</p>
+                        <p>Иллюзия внешнего вида. Расследование (Проницательность) против СЛ <span id="spell-dc-inline2">11</span>.</p>
                     </div>
                 </div>
 
-                <div class="action-card expandable">
+                <div class="action-card spell-level-1 expandable">
                     <div class="action-header" onclick="this.parentElement.classList.toggle('expanded')">
                         <h4>✨ Сверкающие брызги</h4>
-                        <button class="roll-btn-inline" onclick="event.stopPropagation(); rollSpell('Сверкающие брызги', 6, 10)">🎲 6к10</button>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span class="spell-level-badge badge-spell-1">1 ур</span>
+                            <button class="roll-btn-inline" onclick="event.stopPropagation(); rollSpell('Сверкающие брызги', 6, 10)">🎲 6к10</button>
+                        </div>
                     </div>
                     <div class="action-details">
                         <p><strong>Действие • конус 15 фт • момент</strong></p>
@@ -280,8 +426,8 @@
             <!-- Инвентарь -->
             <section id="inventory" class="tab-content">
                 <div class="section-header">
-                    <h2 class="section-title" data-i18n="tab-inventory">Инвентарь</h2>
-                    <button class="add-btn" onclick="toggleAddItemForm()" data-i18n="add-item">+ Добавить</button>
+                    <h2 class="section-title">Инвентарь</h2>
+                    <button class="add-btn" onclick="toggleAddItemForm()">+ Добавить</button>
                 </div>
 
                 <!-- Форма добавления -->
@@ -334,9 +480,34 @@
                     </div>
 
                     <div class="form-buttons">
-                        <button class="btn-save" onclick="addInventoryItem()" data-i18n="save-btn">Сохранить</button>
-                        <button class="btn-cancel" onclick="toggleAddItemForm()" data-i18n="cancel-btn">Отмена</button>
+                        <button class="btn-save" onclick="addInventoryItem()">Сохранить</button>
+                        <button class="btn-cancel" onclick="toggleAddItemForm()">Отмена</button>
                     </div>
+                </div>
+
+                <!-- Деньги -->
+                <div class="money-bar">
+                    <button class="money-bar-btn" onclick="openMoneyModal('subtract')">−</button>
+
+                    <div class="money-compact" onclick="editMoney('gold')">
+                        <span class="money-compact-icon">🟡</span>
+                        <span class="money-compact-label">ЗМ</span>
+                        <span class="money-compact-value" id="money-gold">0</span>
+                    </div>
+
+                    <div class="money-compact" onclick="editMoney('silver')">
+                        <span class="money-compact-icon">⚪</span>
+                        <span class="money-compact-label">СМ</span>
+                        <span class="money-compact-value" id="money-silver">0</span>
+                    </div>
+
+                    <div class="money-compact" onclick="editMoney('copper')">
+                        <span class="money-compact-icon">🟤</span>
+                        <span class="money-compact-label">ММ</span>
+                        <span class="money-compact-value" id="money-copper">0</span>
+                    </div>
+
+                    <button class="money-bar-btn" onclick="openMoneyModal('add')">+</button>
                 </div>
 
                 <div id="inventory-container">
@@ -344,105 +515,100 @@
                 </div>
             </section>
 
-            <!-- Обучение -->
-            <section id="training" class="tab-content">
-                <h2 class="section-title" data-i18n="section-training">Изучаемые предметы</h2>
-                <p class="training-description" data-i18n="training-desc">Тренируйтесь с этими предметами во время длинных отдыхов</p>
-
+            <!-- Заметки и черты -->
+            <section id="notes" class="tab-content">
                 <div class="section-header">
-                    <button class="add-btn full-width" onclick="trainAll()" data-i18n="train-all">Тренировать все</button>
+                    <h2 class="section-title">Трекер событий</h2>
+                    <button class="add-btn" onclick="toggleEventForm()">+ Событие</button>
                 </div>
 
-                <div id="training-container">
-                    <!-- Заполняется JS -->
+                <!-- Форма добавления события -->
+                <div id="event-form" class="add-item-form" style="display: none;">
+                    <input type="text" id="event-name" class="form-input" placeholder="Название события">
+                    <input type="text" id="event-location" class="form-input" placeholder="Место (необязательно)">
+                    <div class="form-row">
+                        <input type="number" id="event-days" class="form-input" placeholder="Через дней" min="0">
+                        <button class="btn-save" onclick="addEvent()">Добавить</button>
+                    </div>
                 </div>
-            </section>
 
-            <!-- Черты -->
-            <section id="features" class="tab-content">
-                <h2 class="section-title" data-i18n="section-racial">Расовые черты (Таборакс)</h2>
+                <!-- Список событий -->
+                <div id="events-container">
+                    <!-- События добавляются динамически -->
+                </div>
 
-                <div class="feature-card">
+                <!-- Черты персонажа -->
+                <h2 class="section-title title-racial">Расовые черты (Табакси)</h2>
+
+                <div class="feature-card feature-racial">
                     <h4>🌙 Тёмное зрение (60 фт)</h4>
                     <p>В темноте видите как при тусклом освещении (оттенки серого).</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card feature-racial">
                     <h4>🐾 Кошачьи когти</h4>
                     <p>Безоружная атака 1к4 + Сила рубящим. Скорость лазания 20 фт.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card feature-racial">
                     <h4>🏃 Кошачье проворство</h4>
                     <p>Удвоение скорости в бою (1 раз). Восстановление после 0 фт движения.</p>
                 </div>
 
-                <h2 class="section-title" data-i18n="section-class">Классовые черты (Разбойник)</h2>
+                <h2 class="section-title title-class">Классовые черты (Разбойник)</h2>
 
-                <div class="feature-card">
+                <div class="feature-card feature-class">
                     <h4>⭐ Компетентность (Экспертиза)</h4>
                     <p>Удвоенный бонус мастерства для: Восприятие, Убеждение</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card feature-class">
                     <h4>🎯 Скрытая атака</h4>
                     <p>Дополнительный урон раз в ход при определённых условиях. Растёт с уровнем.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card feature-class">
                     <h4>⚡ Хитрое действие</h4>
                     <p>Бонусное действие: Рывок, Отход, Засада.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card feature-class">
                     <h4>🗣️ Воровской жаргон</h4>
                     <p>Секретный язык воров. Зашифрованные сообщения, специальные символы.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card feature-class">
                     <h4>🎯 Мистический плут</h4>
                     <p>Заклинания от Интеллекта. Улучшенная волшебная рука.</p>
                 </div>
 
-                <h2 class="section-title" data-i18n="section-personality">Личность</h2>
+                <h2 class="section-title title-personality">Личность</h2>
 
-                <div class="feature-card">
+                <div class="feature-card feature-personality">
                     <h4>🎭 Черты</h4>
                     <p>Осторожен и уважителен в делах, находясь в заброшенных землях.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card feature-personality">
                     <h4>💎 Идеалы</h4>
                     <p>Свобода - величайшее сокровище. Никто не отберёт её снова.</p>
                 </div>
 
-                <div class="feature-card">
+                <div class="feature-card feature-personality">
                     <h4>🔗 Привязанности</h4>
                     <p>Притворяюсь, что не понимаю местный язык, чтобы избежать нежелательных взаимодействий.</p>
                 </div>
-            </section>
 
-            <!-- Заметки -->
-            <section id="notes" class="tab-content">
-                <h2 class="section-title">Общая информация</h2>
+                <h2 class="section-title title-info">Общая информация</h2>
 
-                <div class="note-card">
+                <div class="note-card note-info">
                     <h4>Владение оружием</h4>
                     <p>Простое оружие, ручные арбалеты, длинный меч, рапира, короткий меч</p>
                 </div>
 
-                <div class="note-card">
+                <div class="note-card note-info">
                     <h4>Языки</h4>
                     <p>Общий, Эльфийский, Сильван</p>
-                </div>
-
-                <div class="note-card">
-                    <h4>Броски в бою</h4>
-                    <p><strong>1. Инициатива:</strong> 1к20 + Ловкость</p>
-                    <p><strong>2. Попадание:</strong> 1к20 + мод. характеристики + мастерство</p>
-                    <p><strong>3. Урон:</strong> кость оружия + модификатор</p>
-                    <p><strong>Крит (20):</strong> урон ×2</p>
-                    <p><strong>Провал (1):</strong> автопромах</p>
                 </div>
             </section>
         </main>
@@ -451,12 +617,12 @@
         <div id="character-list-modal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 data-i18n="my-characters">Мои персонажи</h2>
+                    <h2>Мои персонажи</h2>
                     <button class="close-btn" onclick="closeCharacterList()">×</button>
                 </div>
                 <div class="modal-body">
                     <div id="characters-list"></div>
-                    <button class="btn-save full-width" onclick="openCharacterCreator()" data-i18n="create-character">+ Создать нового персонажа</button>
+                    <button class="btn-save full-width" onclick="openCharacterCreator()">+ Создать нового персонажа</button>
                 </div>
             </div>
         </div>
@@ -476,7 +642,7 @@
 
                         <label>Раса:</label>
                         <select id="new-char-race" class="form-input">
-                            <option value="tabaxi">Таборакс (Tabaxi)</option>
+                            <option value="tabaxi">Табакси (Tabaxi)</option>
                             <option value="human">Человек</option>
                             <option value="elf">Эльф</option>
                             <option value="dwarf">Дварф</option>
@@ -572,6 +738,21 @@
                         <div class="hp-divider"></div>
                         <button class="btn-damage" onclick="damageHP()">Урон</button>
                     </div>
+
+                    <!-- Отдыхи -->
+                    <div class="rest-section">
+                        <h3 class="rest-title">Отдых</h3>
+                        <div class="rest-buttons">
+                            <button class="btn-rest short" onclick="shortRest()">
+                                <span class="rest-icon">☕</span>
+                                <span class="rest-label">Короткий отдых</span>
+                            </button>
+                            <button class="btn-rest long" onclick="longRest()">
+                                <span class="rest-icon">🛏️</span>
+                                <span class="rest-label">Длительный отдых</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -600,6 +781,211 @@
                     <input type="number" id="hp-max-input" min="1" max="500" value="13" class="form-input">
 
                     <button class="btn-save full-width" onclick="saveCharacterStats()">Сохранить</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно истощения -->
+        <div id="exhaustion-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Истощение</h2>
+                    <button class="close-btn" onclick="closeExhaustionModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-description">Уровни истощения накладываются друг на друга. При 6 уровне — смерть.</p>
+
+                    <div class="exhaustion-controls">
+                        <label>Уровень истощения:</label>
+                        <div class="item-controls">
+                            <button class="item-control-btn" onclick="changeExhaustion(-1)">−</button>
+                            <span class="item-count" id="exhaustion-level">0</span>
+                            <button class="item-control-btn" onclick="changeExhaustion(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="exhaustion-levels">
+                        <div class="exhaustion-item" data-level="1">
+                            <strong>1:</strong> Помеха на проверки характеристик
+                        </div>
+                        <div class="exhaustion-item" data-level="2">
+                            <strong>2:</strong> Скорость уменьшается вдвое
+                        </div>
+                        <div class="exhaustion-item" data-level="3">
+                            <strong>3:</strong> Помеха на броски атаки и спасброски
+                        </div>
+                        <div class="exhaustion-item" data-level="4">
+                            <strong>4:</strong> Максимум ХП уменьшается вдвое
+                        </div>
+                        <div class="exhaustion-item" data-level="5">
+                            <strong>5:</strong> Скорость снижается до 0
+                        </div>
+                        <div class="exhaustion-item" data-level="6">
+                            <strong>6:</strong> Смерть
+                        </div>
+                    </div>
+
+                    <p class="modal-note">💡 Длительный отдых убирает 1 уровень истощения</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно состояний -->
+        <div id="conditions-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Состояния</h2>
+                    <button class="close-btn" onclick="closeConditionsModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-description">Отметьте активные состояния персонажа:</p>
+
+                    <div class="conditions-list">
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="blinded" onchange="updateConditions()">
+                            <span class="condition-name">😵 Ослеплён</span>
+                            <span class="condition-effect">Автопровал проверок зрения. Помеха на атаки. Атаки по вам с преимуществом</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="charmed" onchange="updateConditions()">
+                            <span class="condition-name">💖 Очарован</span>
+                            <span class="condition-effect">Не может атаковать очаровавшего. Очаровавший получает преимущество на соц. взаимодействия</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="deafened" onchange="updateConditions()">
+                            <span class="condition-name">🔇 Оглушён</span>
+                            <span class="condition-effect">Автопровал проверок слуха</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="frightened" onchange="updateConditions()">
+                            <span class="condition-name">😱 Напуган</span>
+                            <span class="condition-effect">Помеха на проверки и атаки пока источник страха в поле зрения. Не может приблизиться к источнику</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="grappled" onchange="updateConditions()">
+                            <span class="condition-name">🤼 Схвачен</span>
+                            <span class="condition-effect">Скорость = 0. Не может перемещаться</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="incapacitated" onchange="updateConditions()">
+                            <span class="condition-name">😵‍💫 Недееспособен</span>
+                            <span class="condition-effect">Не может совершать действия и реакции</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="invisible" onchange="updateConditions()">
+                            <span class="condition-name">👻 Невидим</span>
+                            <span class="condition-effect">Преимущество на атаки. Атаки по вам с помехой</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="paralyzed" onchange="updateConditions()">
+                            <span class="condition-name">🧊 Парализован</span>
+                            <span class="condition-effect">Недееспособен. Автопровал Силы и Ловкости. Атаки по вам с преимуществом. Попадания с 5 фт = автокрит</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="petrified" onchange="updateConditions()">
+                            <span class="condition-name">🗿 Окаменел</span>
+                            <span class="condition-effect">Превращён в камень. Недееспособен. Автопровал Силы и Ловкости. Сопротивление ко всему урону. Иммунитет к яду и болезням</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="poisoned" onchange="updateConditions()">
+                            <span class="condition-name">🤢 Отравлен</span>
+                            <span class="condition-effect">Помеха на атаки и проверки характеристик</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="prone" onchange="updateConditions()">
+                            <span class="condition-name">🤕 Сбит с ног</span>
+                            <span class="condition-effect">Помеха на атаки. Атаки ближнего боя по вам с преимуществом. Дальние атаки по вам с помехой. Половина скорости для подъёма</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="restrained" onchange="updateConditions()">
+                            <span class="condition-name">⛓️ Опутан</span>
+                            <span class="condition-effect">Скорость = 0. Помеха на атаки и спасброски Ловкости. Атаки по вам с преимуществом</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="stunned" onchange="updateConditions()">
+                            <span class="condition-name">⭐ Ошеломлён</span>
+                            <span class="condition-effect">Недееспособен. Автопровал Силы и Ловкости. Атаки по вам с преимуществом</span>
+                        </label>
+
+                        <label class="condition-item">
+                            <input type="checkbox" class="condition-check" data-condition="unconscious" onchange="updateConditions()">
+                            <span class="condition-name">💤 Без сознания</span>
+                            <span class="condition-effect">Недееспособен. Роняете всё. Автопровал Силы и Ловкости. Атаки по вам с преимуществом. Попадания с 5 фт = автокрит</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно денег -->
+        <div id="money-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="money-modal-title">Добавить</h2>
+                    <button class="close-btn" onclick="closeMoneyModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="money-modal-row">
+                        <span class="money-modal-icon">🟡</span>
+                        <span class="money-modal-label">ЗМ</span>
+                        <span class="money-modal-current" id="modal-gold-current">0</span>
+                        <button class="money-modal-btn" id="btn-gold" onclick="adjustMoneyModal('gold', 1)">+</button>
+                        <input type="number" id="modal-gold-input" class="money-modal-input" placeholder="0" min="0">
+                    </div>
+
+                    <div class="money-modal-row">
+                        <span class="money-modal-icon">⚪</span>
+                        <span class="money-modal-label">СМ</span>
+                        <span class="money-modal-current" id="modal-silver-current">0</span>
+                        <button class="money-modal-btn" id="btn-silver" onclick="adjustMoneyModal('silver', 1)">+</button>
+                        <input type="number" id="modal-silver-input" class="money-modal-input" placeholder="0" min="0">
+                    </div>
+
+                    <div class="money-modal-row">
+                        <span class="money-modal-icon">🟤</span>
+                        <span class="money-modal-label">ММ</span>
+                        <span class="money-modal-current" id="modal-copper-current">0</span>
+                        <button class="money-modal-btn" id="btn-copper" onclick="adjustMoneyModal('copper', 1)">+</button>
+                        <input type="number" id="modal-copper-input" class="money-modal-input" placeholder="0" min="0">
+                    </div>
+
+                    <div class="money-modal-buttons">
+                        <button class="btn-cancel" onclick="closeMoneyModal()">Отмена</button>
+                        <button class="btn-save" onclick="saveMoneyModal()">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно обучения -->
+        <div id="training-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Обучение предметам</h2>
+                    <button class="close-btn" onclick="closeTrainingModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-description">Длительный отдых завершён! Вы можете потренироваться с изучаемыми предметами.</p>
+
+                    <div class="section-header">
+                        <button class="add-btn full-width" onclick="trainAll(); closeTrainingModal()">Тренировать все</button>
+                    </div>
+
+                    <div id="training-modal-container">
+                        <!-- Заполняется JS -->
+                    </div>
                 </div>
             </div>
         </div>

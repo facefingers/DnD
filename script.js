@@ -1,193 +1,9 @@
 // Настройки приложения
 let appSettings = {
-    language: 'ru',
     onlineMode: false,
     darkTheme: false
 };
 
-// Локализация
-const translations = {
-    ru: {
-        // Основные показатели
-        'level-short': 'Уровень',
-        'hp': 'Хиты',
-        'ac': 'КБ',
-        'init': 'Иниц',
-        'speed': 'Скор',
-
-        // Вкладки
-        'tab-stats': 'Статы',
-        'tab-actions': 'Действия',
-        'tab-spells': 'Заклинания',
-        'tab-inventory': 'Инвентарь',
-        'tab-features': 'Черты',
-        'tab-notes': 'Заметки',
-        'tab-training': 'Обучение',
-
-        // Статы
-        'section-stats': 'Характеристики',
-        'edit-stats': '⚙️ Изменить',
-        'abilities': 'Характеристики',
-        'value': 'Значение',
-        'modifier': 'Модиф.',
-        'saving-throw': 'Спасбросок',
-        'proficiency-bonus': 'Бонус мастерства',
-        'passive-perception': 'Пассивная внимательность',
-        'skills': 'Навыки',
-
-        // Действия
-        'section-attacks': 'Атаки',
-        'section-combat': 'Действия в бою',
-        'hit': 'Попадание',
-        'damage': 'Урон',
-
-        // Заклинания
-        'section-spellcasting': 'Характеристики заклинателя',
-        'spell-dc': 'СЛ заклинаний',
-        'spell-attack': 'Бонус атаки',
-        'cantrips': 'Заговоры (неограниченно)',
-        'level-1-spells': 'Заклинания 1 уровня',
-        'spell-slots': 'Ячейки',
-        'total': 'всего',
-
-        // Инвентарь
-        'section-inventory': 'Инвентарь',
-        'add-item': '+ Добавить',
-        'edit-item': 'Изменить',
-        'item-name': 'Название предмета',
-        'item-type': 'Тип',
-        'description': 'Описание',
-        'quantity': 'Количество',
-        'equipped': 'Экипировано',
-        'learnable': 'Можно изучать/тренироваться',
-        'learning-target': 'Цель (очков для овладения)',
-        'dice-roll': 'Бросок кости',
-        'ability-modifier': 'Модификатор',
-        'weapon': 'Оружие',
-        'armor': 'Броня',
-        'tool': 'Инструменты',
-        'consumable': 'Расходники',
-        'ingredient': 'Ингредиенты',
-        'misc': 'Разное',
-        'progress': 'Прогресс',
-
-        // Обучение
-        'section-training': 'Изучаемые предметы',
-        'training-desc': 'Тренируйтесь с этими предметами во время длинных отдыхов',
-        'train': 'Тренировать',
-        'train-all': 'Тренировать все',
-        'mastered': 'Освоено!',
-        'not-started': 'Не начато',
-
-        // Черты
-        'section-racial': 'Расовые черты',
-        'section-class': 'Классовые черты',
-        'section-personality': 'Личность',
-
-        // Общие
-        'save-btn': 'Сохранить',
-        'cancel-btn': 'Отмена',
-        'delete-btn': 'Удалить',
-        'close': 'Закрыть',
-        'char-updated': 'Персонаж успешно обновлён',
-        'short-rest': 'Короткий отдых',
-        'short-rest-desc': 'Слоты заклинаний восстановлены',
-        'long-rest': 'Длинный отдых',
-        'long-rest-desc': 'Хиты и слоты полностью восстановлены',
-        'my-characters': 'Мои персонажи',
-        'create-character': '+ Создать нового персонажа'
-    },
-    en: {
-        // Main stats
-        'level-short': 'Level',
-        'hp': 'HP',
-        'ac': 'AC',
-        'init': 'Init',
-        'speed': 'Speed',
-
-        // Tabs
-        'tab-stats': 'Stats',
-        'tab-actions': 'Actions',
-        'tab-spells': 'Spells',
-        'tab-inventory': 'Inventory',
-        'tab-features': 'Features',
-        'tab-notes': 'Notes',
-        'tab-training': 'Training',
-
-        // Stats
-        'section-stats': 'Abilities',
-        'edit-stats': '⚙️ Edit',
-        'abilities': 'Abilities',
-        'value': 'Score',
-        'modifier': 'Modifier',
-        'saving-throw': 'Save',
-        'proficiency-bonus': 'Proficiency Bonus',
-        'passive-perception': 'Passive Perception',
-        'skills': 'Skills',
-
-        // Actions
-        'section-attacks': 'Attacks',
-        'section-combat': 'Combat Actions',
-        'hit': 'Hit',
-        'damage': 'Damage',
-
-        // Spells
-        'section-spellcasting': 'Spellcasting',
-        'spell-dc': 'Spell DC',
-        'spell-attack': 'Spell Attack',
-        'cantrips': 'Cantrips (at will)',
-        'level-1-spells': '1st Level Spells',
-        'spell-slots': 'Spell Slots',
-        'total': 'total',
-
-        // Inventory
-        'section-inventory': 'Inventory',
-        'add-item': '+ Add',
-        'edit-item': 'Edit',
-        'item-name': 'Item Name',
-        'item-type': 'Type',
-        'description': 'Description',
-        'quantity': 'Quantity',
-        'equipped': 'Equipped',
-        'learnable': 'Can be learned/trained',
-        'learning-target': 'Target (points to master)',
-        'dice-roll': 'Dice Roll',
-        'ability-modifier': 'Ability Modifier',
-        'weapon': 'Weapon',
-        'armor': 'Armor',
-        'tool': 'Tools',
-        'consumable': 'Consumables',
-        'ingredient': 'Ingredients',
-        'misc': 'Misc',
-        'progress': 'Progress',
-
-        // Training
-        'section-training': 'Training Items',
-        'training-desc': 'Train with these items during long rests',
-        'train': 'Train',
-        'train-all': 'Train All',
-        'mastered': 'Mastered!',
-        'not-started': 'Not Started',
-
-        // Features
-        'section-racial': 'Racial Features',
-        'section-class': 'Class Features',
-        'section-personality': 'Personality',
-
-        // Common
-        'save-btn': 'Save',
-        'cancel-btn': 'Cancel',
-        'delete-btn': 'Delete',
-        'close': 'Close',
-        'char-updated': 'Character updated successfully',
-        'short-rest': 'Short Rest',
-        'short-rest-desc': 'Spell slots restored',
-        'long-rest': 'Long Rest',
-        'long-rest-desc': 'HP and spell slots fully restored',
-        'my-characters': 'My Characters',
-        'create-character': '+ Create New Character'
-    }
-};
 
 // Система персонажей
 let characters = [];
@@ -207,7 +23,12 @@ const defaultCharacter = {
     wis: 13,
     cha: 15,
     hpMax: 13,
-    ac: 14
+    ac: 14,
+    money: {
+        gold: 0,
+        silver: 0,
+        copper: 0
+    }
 };
 
 // Получить активного персонажа
@@ -462,17 +283,10 @@ function updateSpellCalculations() {
     const spellDC = 8 + prof + intMod;
     const spellAttack = prof + intMod;
 
-    const profLabel = appSettings.language === 'en' ? 'Proficiency' : 'Мастерство';
-    const intLabel = appSettings.language === 'en' ? 'Intelligence' : 'Интеллект';
-
-    // Используем переводы для заголовков
-    const dcKey = translations[appSettings.language]['spell-dc'] || 'СЛ заклинаний';
-    const attackKey = translations[appSettings.language]['spell-attack'] || 'Бонус атаки';
-
     document.getElementById('spell-dc-calc').innerHTML =
-        `<strong>${dcKey}</strong>: 8 + ${profLabel} (${prof}) + ${intLabel} (${intMod}) = <strong>${spellDC}</strong>`;
+        `<strong>Сила заклинаний</strong><div class="spell-stat-value">${spellDC}</div><div class="spell-stat-formula">8 + Мастерство (${prof}) + Интеллект (${intMod})</div>`;
     document.getElementById('spell-attack-calc').innerHTML =
-        `<strong>${attackKey}</strong>: ${profLabel} (${prof}) + ${intLabel} (${intMod}) = <strong>+${spellAttack}</strong>`;
+        `<strong>Бонус атаки заклинаниями</strong><div class="spell-stat-value">+${spellAttack}</div><div class="spell-stat-formula">Мастерство (${prof}) + Интеллект (${intMod})</div>`;
 
     // Обновляем inline значения
     document.getElementById('spell-dc-inline').textContent = spellDC;
@@ -605,11 +419,7 @@ function closeHPModal() {
 }
 
 function healHP() {
-    const msg = appSettings.language === 'en'
-        ? 'How many HP to restore?'
-        : 'Сколько хитов восстановить?';
-
-    const amount = prompt(msg);
+    const amount = prompt('Сколько хитов восстановить?');
     if (amount === null) return;
 
     const heal = parseInt(amount);
@@ -626,11 +436,7 @@ function healHP() {
 }
 
 function damageHP() {
-    const msg = appSettings.language === 'en'
-        ? 'How much damage?'
-        : 'Сколько урона?';
-
-    const amount = prompt(msg);
+    const amount = prompt('Сколько урона?');
     if (amount === null) return;
 
     const damage = parseInt(amount);
@@ -757,8 +563,7 @@ function saveCharacterStats() {
     updateAllCalculations();
     closeStatsModal();
 
-    const successMsg = translations[appSettings.language]['char-updated'];
-    showRollResult('✓', successMsg, '');
+    showRollResult('✓', 'Персонаж успешно обновлён', '');
 }
 
 // Инвентарь
@@ -770,12 +575,12 @@ function renderInventory() {
     container.innerHTML = '';
 
     const categories = {
-        weapon: translations[appSettings.language]['weapon'] || 'Оружие',
-        armor: translations[appSettings.language]['armor'] || 'Броня',
-        tool: translations[appSettings.language]['tool'] || 'Инструменты',
-        consumable: translations[appSettings.language]['consumable'] || 'Расходники',
-        ingredient: translations[appSettings.language]['ingredient'] || 'Ингредиенты',
-        misc: translations[appSettings.language]['misc'] || 'Разное'
+        weapon: 'Оружие',
+        armor: 'Броня',
+        tool: 'Инструменты',
+        consumable: 'Расходники',
+        ingredient: 'Ингредиенты',
+        misc: 'Разное'
     };
 
     Object.keys(categories).forEach(type => {
@@ -784,7 +589,7 @@ function renderInventory() {
         const header = document.createElement('div');
         header.className = 'category-header';
         header.innerHTML = `
-            <span>${categories[type]}</span>
+            <span class="item-category category-${type}">${categories[type]}</span>
             <span class="category-count">${inventory[type].length}</span>
         `;
         container.appendChild(header);
@@ -792,6 +597,8 @@ function renderInventory() {
         inventory[type].forEach((item, index) => {
             const div = document.createElement('div');
             div.className = 'inventory-item';
+            div.setAttribute('data-category', type);
+            div.classList.add(`category-${type}`);
             if (item.equipped) div.classList.add('equipped');
             if (item.learnable) div.classList.add('learnable');
 
@@ -836,6 +643,141 @@ function renderInventory() {
         });
     });
 }
+
+// === ДЕНЬГИ ===
+function renderMoney() {
+    const moneyKey = `${activeCharacterId}-money`;
+    const money = JSON.parse(localStorage.getItem(moneyKey)) || character.money || { gold: 0, silver: 0, copper: 0 };
+
+    document.getElementById('money-gold').textContent = money.gold || 0;
+    document.getElementById('money-silver').textContent = money.silver || 0;
+    document.getElementById('money-copper').textContent = money.copper || 0;
+}
+
+window.editMoney = function(type) {
+    const moneyKey = `${activeCharacterId}-money`;
+    const money = JSON.parse(localStorage.getItem(moneyKey)) || character.money || { gold: 0, silver: 0, copper: 0 };
+
+    const labels = {
+        gold: 'золота (зм)',
+        silver: 'серебра (см)',
+        copper: 'меди (мм)'
+    };
+
+    const currentValue = money[type] || 0;
+    const newValue = prompt(`Введите количество ${labels[type]}:`, currentValue);
+
+    if (newValue === null) return; // Отмена
+
+    const parsedValue = parseInt(newValue);
+    if (isNaN(parsedValue) || parsedValue < 0) {
+        alert('Введите корректное число (0 или больше)');
+        return;
+    }
+
+    money[type] = parsedValue;
+    localStorage.setItem(moneyKey, JSON.stringify(money));
+    renderMoney();
+};
+
+let moneyModalMode = 'add'; // 'add' или 'subtract'
+
+window.openMoneyModal = function(mode = 'add') {
+    moneyModalMode = mode;
+
+    const moneyKey = `${activeCharacterId}-money`;
+    const money = JSON.parse(localStorage.getItem(moneyKey)) || character.money || { gold: 0, silver: 0, copper: 0 };
+
+    // Меняем заголовок в зависимости от режима
+    document.getElementById('money-modal-title').textContent = mode === 'add' ? 'Добавить' : 'Потратить';
+
+    // Меняем текст кнопок в зависимости от режима
+    const buttonText = mode === 'add' ? '+' : '−';
+    document.getElementById('btn-gold').textContent = buttonText;
+    document.getElementById('btn-silver').textContent = buttonText;
+    document.getElementById('btn-copper').textContent = buttonText;
+
+    // Отображаем текущие значения
+    document.getElementById('modal-gold-current').textContent = money.gold || 0;
+    document.getElementById('modal-silver-current').textContent = money.silver || 0;
+    document.getElementById('modal-copper-current').textContent = money.copper || 0;
+
+    // Очищаем поля ввода
+    document.getElementById('modal-gold-input').value = '';
+    document.getElementById('modal-silver-input').value = '';
+    document.getElementById('modal-copper-input').value = '';
+
+    document.getElementById('money-modal').classList.add('active');
+};
+
+window.closeMoneyModal = function() {
+    document.getElementById('money-modal').classList.remove('active');
+};
+
+window.adjustMoneyModal = function(type, delta) {
+    const input = document.getElementById(`modal-${type}-input`);
+    const currentValue = parseInt(input.value) || 0;
+    input.value = Math.max(0, currentValue + delta);
+};
+
+window.saveMoneyModal = function() {
+    const moneyKey = `${activeCharacterId}-money`;
+    const money = JSON.parse(localStorage.getItem(moneyKey)) || character.money || { gold: 0, silver: 0, copper: 0 };
+
+    // Получаем значения из полей ввода
+    const goldChange = parseInt(document.getElementById('modal-gold-input').value) || 0;
+    const silverChange = parseInt(document.getElementById('modal-silver-input').value) || 0;
+    const copperChange = parseInt(document.getElementById('modal-copper-input').value) || 0;
+
+    if (moneyModalMode === 'add') {
+        // Режим добавления
+        let copper = Math.max(0, (money.copper || 0) + copperChange);
+        let silver = Math.max(0, (money.silver || 0) + silverChange);
+        let gold = Math.max(0, (money.gold || 0) + goldChange);
+
+        // Конвертация: 10 медных = 1 серебро
+        if (copper >= 10) {
+            const copperToSilver = Math.floor(copper / 10);
+            silver += copperToSilver;
+            copper = copper % 10;
+        }
+
+        // Конвертация: 10 серебра = 1 золото
+        if (silver >= 10) {
+            const silverToGold = Math.floor(silver / 10);
+            gold += silverToGold;
+            silver = silver % 10;
+        }
+
+        money.gold = gold;
+        money.silver = silver;
+        money.copper = copper;
+    } else {
+        // Режим вычитания с автоматической конвертацией
+        // Переводим всё в медь
+        let totalCopper = (money.gold || 0) * 100 + (money.silver || 0) * 10 + (money.copper || 0);
+        const spendCopper = goldChange * 100 + silverChange * 10 + copperChange;
+
+        // Проверяем, достаточно ли денег
+        if (totalCopper < spendCopper) {
+            alert('Недостаточно денег!');
+            return;
+        }
+
+        // Вычитаем
+        totalCopper -= spendCopper;
+
+        // Конвертируем обратно
+        money.gold = Math.floor(totalCopper / 100);
+        totalCopper = totalCopper % 100;
+        money.silver = Math.floor(totalCopper / 10);
+        money.copper = totalCopper % 10;
+    }
+
+    localStorage.setItem(moneyKey, JSON.stringify(money));
+    renderMoney();
+    closeMoneyModal();
+};
 
 // Переменная для отслеживания режима редактирования
 let editingItem = null;
@@ -903,7 +845,7 @@ function addInventoryItem() {
     const learnable = document.getElementById('item-learnable-input').checked;
 
     if (!name) {
-        const msg = appSettings.language === 'en' ? 'Enter item name' : 'Введите название предмета';
+        const msg = 'Введите название предмета';
         alert(msg);
         return;
     }
@@ -987,28 +929,16 @@ function deleteItem(type, index) {
     renderInventory();
 }
 
-// Debug: отслеживание кликов
-document.addEventListener('click', (e) => {
-    console.log('🖱️ Click detected:', {
-        target: e.target.tagName,
-        class: e.target.className,
-        id: e.target.id,
-        x: e.clientX,
-        y: e.clientY
-    });
-}, true);
-
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Initializing app...');
+    console.log('🎲 Интерактивный лист персонажа загружен!');
 
-    // Проверяем наличие всех модальных окон
+    // Принудительно закрываем все модальные окна при загрузке
     const modals = document.querySelectorAll('.modal');
-    console.log(`Found ${modals.length} modals`);
-    modals.forEach((modal, i) => {
-        console.log(`  Modal ${i}: ${modal.id}, active: ${modal.classList.contains('active')}`);
-        // Принудительно закрываем все модальные окна
+    console.log('📦 Найдено модальных окон:', modals.length);
+    modals.forEach(modal => {
         modal.classList.remove('active');
+        console.log('  - Модальное окно закрыто:', modal.id);
     });
 
     // Загружаем настройки приложения
@@ -1021,8 +951,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nameDisplay = document.getElementById('character-name-display');
     if (nameDisplay) {
         nameDisplay.textContent = character.name;
-    } else {
-        console.error('❌ character-name-display not found');
     }
 
     // Загружаем хиты текущего персонажа
@@ -1031,8 +959,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const hpDisplay = document.getElementById('hp-current-display');
     if (hpDisplay) {
         hpDisplay.textContent = currentHP;
-    } else {
-        console.error('❌ hp-current-display not found');
     }
 
     // Обновляем все расчеты
@@ -1040,15 +966,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Рендерим инвентарь и обучение
     renderInventory();
+    renderMoney();
     renderTraining();
+
+    // Загружаем вдохновение, истощение и состояния
+    loadInspiration();
+    updateExhaustionDisplay();
+    loadConditions();
+
+    // Рендерим события
+    renderEvents();
 
     // Переключение вкладок
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
+    console.log('📑 Найдено вкладок:', tabs.length);
+    console.log('📄 Найдено секций контента:', tabContents.length);
 
-    tabs.forEach(tab => {
+    tabs.forEach((tab, index) => {
+        console.log(`  - Вкладка ${index + 1}: ${tab.getAttribute('data-tab')}`);
         tab.addEventListener('click', () => {
             const targetTab = tab.getAttribute('data-tab');
+            console.log('✅ Клик на вкладку:', targetTab);
             tabs.forEach(t => t.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
             tab.classList.add('active');
@@ -1072,6 +1011,18 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem(`spell-slot-${index}`, slot.checked ? 'checked' : 'unchecked');
         });
     });
+
+    // Глобальное отслеживание кликов для диагностики
+    document.addEventListener('click', (e) => {
+        console.log('🖱️ Клик:', {
+            тег: e.target.tagName,
+            класс: e.target.className,
+            текст: e.target.textContent?.substring(0, 30),
+            id: e.target.id
+        });
+    }, true);
+
+    console.log('✅ Инициализация завершена успешно!');
 });
 
 // Управление персонажами
@@ -1101,6 +1052,7 @@ function switchCharacter(charId) {
     document.getElementById('character-name-display').textContent = character.name;
     updateAllCalculations();
     renderInventory();
+    renderMoney();
 
     // Загружаем хиты персонажа
     const savedHP = localStorage.getItem(`${charId}-hp`);
@@ -1162,7 +1114,7 @@ function renderCharacterList() {
 
 function getRaceName(race) {
     const races = {
-        tabaxi: 'Таборакс',
+        tabaxi: 'Табакси',
         human: 'Человек',
         elf: 'Эльф',
         dwarf: 'Дварф',
@@ -1236,7 +1188,8 @@ function createNewCharacter() {
         wis: parseInt(document.getElementById('new-wis').value),
         cha: parseInt(document.getElementById('new-cha').value),
         ac: parseInt(document.getElementById('new-ac').value),
-        hpMax: parseInt(document.getElementById('new-hp-max').value)
+        hpMax: parseInt(document.getElementById('new-hp-max').value),
+        money: { gold: 0, silver: 0, copper: 0 }
     };
 
     characters.push(newChar);
@@ -1259,14 +1212,6 @@ function saveAppSettings() {
 }
 
 function applyAppSettings() {
-    // Применяем язык
-    applyLanguage(appSettings.language);
-    const langBtn = document.getElementById('lang-btn');
-    if (langBtn) {
-        langBtn.textContent = appSettings.language === 'en' ? 'EN' : 'RU';
-        langBtn.classList.toggle('active', appSettings.language === 'en');
-    }
-
     // Применяем онлайн режим
     if (appSettings.onlineMode) {
         document.body.classList.add('online-mode');
@@ -1291,26 +1236,6 @@ function applyAppSettings() {
     }
 }
 
-function applyLanguage(lang) {
-    const elements = document.querySelectorAll('[data-i18n]');
-    elements.forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translations[lang] && translations[lang][key]) {
-            el.textContent = translations[lang][key];
-        }
-    });
-
-    // Перерисовываем инвентарь и обучение с новыми переводами
-    renderInventory();
-    renderTraining();
-}
-
-function toggleLanguage() {
-    appSettings.language = appSettings.language === 'en' ? 'ru' : 'en';
-    saveAppSettings();
-    applyAppSettings();
-}
-
 function toggleOnlineMode() {
     appSettings.onlineMode = !appSettings.onlineMode;
     saveAppSettings();
@@ -1323,94 +1248,81 @@ function toggleTheme() {
     applyAppSettings();
 }
 
-// Экспорт функций
-window.openHPModal = openHPModal;
-window.closeHPModal = closeHPModal;
-window.healHP = healHP;
-window.damageHP = damageHP;
-window.changeHitDice = changeHitDice;
-window.levelUp = levelUp;
-window.openStatsModal = openStatsModal;
-window.closeStatsModal = closeStatsModal;
-window.saveCharacterStats = saveCharacterStats;
-window.toggleLanguage = toggleLanguage;
-window.toggleOnlineMode = toggleOnlineMode;
-window.toggleTheme = toggleTheme;
-window.rollAttack = rollAttack;
-window.rollDamage = rollDamage;
-window.rollSneakAttack = rollSneakAttack;
-window.rollSpell = rollSpell;
-window.toggleAddItemForm = toggleAddItemForm;
-window.toggleLearnableFields = toggleLearnableFields;
-window.addInventoryItem = addInventoryItem;
-window.editItem = editItem;
-window.deleteItem = deleteItem;
-window.changeItemCount = changeItemCount;
-window.trainItem = trainItem;
-window.trainAll = trainAll;
-window.openCharacterList = openCharacterList;
-window.closeCharacterList = closeCharacterList;
-window.deleteCharacter = deleteCharacter;
-window.openCharacterCreator = openCharacterCreator;
-window.closeCharacterCreator = closeCharacterCreator;
-window.goToCreatorStep = goToCreatorStep;
-window.createNewCharacter = createNewCharacter;
+// === ВДОХНОВЕНИЕ ===
+function toggleInspirationPlayer(event) {
+    event.stopPropagation();
+    const btn = document.getElementById('inspiration-player');
+    const isActive = btn.classList.contains('active');
+    btn.classList.toggle('active');
+    localStorage.setItem(`${activeCharacterId}-inspiration-player`, !isActive);
+    console.log('Вдохновение игрока:', !isActive);
+}
 
-window.shortRest = function() {
-    document.querySelectorAll('.spell-slot-check').forEach((slot, index) => {
-        slot.checked = false;
-        localStorage.setItem(`spell-slot-${index}`, 'unchecked');
+function toggleInspirationDM(event) {
+    event.stopPropagation();
+    const btn = document.getElementById('inspiration-dm');
+    const isActive = btn.classList.contains('active');
+    btn.classList.toggle('active');
+    localStorage.setItem(`${activeCharacterId}-inspiration-dm`, !isActive);
+    console.log('Вдохновение мастера:', !isActive);
+}
+
+function loadInspiration() {
+    const playerInsp = localStorage.getItem(`${activeCharacterId}-inspiration-player`) === 'true';
+    const dmInsp = localStorage.getItem(`${activeCharacterId}-inspiration-dm`) === 'true';
+
+    if (playerInsp) document.getElementById('inspiration-player')?.classList.add('active');
+    if (dmInsp) document.getElementById('inspiration-dm')?.classList.add('active');
+}
+
+// === ИСТОЩЕНИЕ ===
+function openExhaustionModal() {
+    document.getElementById('exhaustion-modal').classList.add('active');
+    updateExhaustionVisual();
+}
+
+function closeExhaustionModal() {
+    document.getElementById('exhaustion-modal').classList.remove('active');
+}
+
+function changeExhaustion(delta) {
+    const current = parseInt(localStorage.getItem(`${activeCharacterId}-exhaustion`) || '0');
+    const newValue = Math.max(0, Math.min(6, current + delta));
+    localStorage.setItem(`${activeCharacterId}-exhaustion`, newValue);
+    updateExhaustionDisplay();
+    updateExhaustionVisual();
+}
+
+function updateExhaustionDisplay() {
+    const value = parseInt(localStorage.getItem(`${activeCharacterId}-exhaustion`) || '0');
+    document.getElementById('exhaustion-display').textContent = value;
+    const levelEl = document.getElementById('exhaustion-level');
+    if (levelEl) levelEl.textContent = value;
+}
+
+function updateExhaustionVisual() {
+    const level = parseInt(localStorage.getItem(`${activeCharacterId}-exhaustion`) || '0');
+    document.querySelectorAll('.exhaustion-item').forEach((item, index) => {
+        if (index < level) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
     });
+}
 
-    const title = translations[appSettings.language]['short-rest'];
-    const desc = translations[appSettings.language]['short-rest-desc'];
-    showRollResult(title, '✓', desc);
-};
+// === МОДАЛЬНОЕ ОКНО ОБУЧЕНИЯ ===
+function openTrainingModal() {
+    renderTrainingModal();
+    document.getElementById('training-modal').classList.add('active');
+}
 
-window.longRest = function() {
-    // Восстанавливаем хиты
-    localStorage.setItem(`${activeCharacterId}-hp`, character.hpMax);
-    document.getElementById('hp-current-display').textContent = character.hpMax;
+function closeTrainingModal() {
+    document.getElementById('training-modal').classList.remove('active');
+}
 
-    // Восстанавливаем слоты без показа уведомления
-    document.querySelectorAll('.spell-slot-check').forEach((slot, index) => {
-        slot.checked = false;
-        localStorage.setItem(`${activeCharacterId}-spell-slot-${index}`, 'unchecked');
-    });
-
-    // Восстанавливаем кости хитов
-    localStorage.setItem(`${activeCharacterId}-hit-dice`, character.level);
-
-    const title = translations[appSettings.language]['long-rest'];
-    const desc = translations[appSettings.language]['long-rest-desc'];
-    showRollResult(title, '✓', desc);
-
-    // Показываем напоминание о тренировке если есть изучаемые предметы
-    const inventoryKey = `${activeCharacterId}-inventory`;
-    const inventory = JSON.parse(localStorage.getItem(inventoryKey)) || defaultInventory;
-    let hasLearnable = false;
-    Object.keys(inventory).forEach(type => {
-        inventory[type].forEach(item => {
-            if (item.learnable && item.progress < item.target) {
-                hasLearnable = true;
-            }
-        });
-    });
-
-    if (hasLearnable) {
-        const reminderMsg = appSettings.language === 'en'
-            ? 'You have items to train! Check the Training tab.'
-            : 'У вас есть предметы для тренировки! Проверьте вкладку Обучение.';
-        setTimeout(() => {
-            showRollResult('💡', reminderMsg, '');
-        }, 1500);
-    }
-};
-
-
-// Отображение вкладки обучения
-function renderTraining() {
-    const container = document.getElementById('training-container');
+function renderTrainingModal() {
+    const container = document.getElementById('training-modal-container');
     const inventoryKey = `${activeCharacterId}-inventory`;
     const inventory = JSON.parse(localStorage.getItem(inventoryKey)) || defaultInventory;
 
@@ -1432,14 +1344,13 @@ function renderTraining() {
                 let statusText = '';
                 let statusClass = '';
                 if (isMastered) {
-                    statusText = translations[appSettings.language]['mastered'] || 'Освоено!';
+                    statusText = 'Освоено!';
                     statusClass = 'status-mastered';
                 } else if (item.progress === 0) {
-                    statusText = translations[appSettings.language]['not-started'] || 'Не начато';
+                    statusText = 'Не начато';
                     statusClass = 'status-not-started';
                 } else {
-                    const progressText = translations[appSettings.language]['progress'] || 'Прогресс';
-                    statusText = `${progressText}: ${item.progress}/${item.target}`;
+                    statusText = `Прогресс: ${item.progress}/${item.target}`;
                     statusClass = 'status-in-progress';
                 }
 
@@ -1457,6 +1368,350 @@ function renderTraining() {
                             <span>${Math.floor(progress)}%</span>
                         </div>
                     </div>
+                    ${!isMastered ? `<button class="btn-train" onclick="trainItem('${type}', ${index}); renderTrainingModal()">Тренировать</button>` : ''}
+                `;
+
+                container.appendChild(div);
+            }
+        });
+    });
+
+    if (!hasLearnableItems) {
+        container.innerHTML = `<div class="empty-state">
+            <p>Нет изучаемых предметов.</p>
+        </div>`;
+    }
+}
+
+// === ТРЕКЕР СОБЫТИЙ ===
+function toggleEventForm() {
+    const form = document.getElementById('event-form');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}
+
+function addEvent() {
+    const name = document.getElementById('event-name').value.trim();
+    const location = document.getElementById('event-location').value.trim();
+    const days = parseInt(document.getElementById('event-days').value);
+
+    if (!name || isNaN(days) || days < 0) {
+        showRollResult('Ошибка', 'Заполните название и количество дней', '');
+        return;
+    }
+
+    const events = getEvents();
+    const newEvent = {
+        id: Date.now(),
+        name: name,
+        location: location,
+        daysLeft: days,
+        createdAt: new Date().toISOString()
+    };
+
+    events.push(newEvent);
+    localStorage.setItem(`${activeCharacterId}-events`, JSON.stringify(events));
+
+    // Очищаем форму
+    document.getElementById('event-name').value = '';
+    document.getElementById('event-location').value = '';
+    document.getElementById('event-days').value = '';
+    toggleEventForm();
+
+    renderEvents();
+    showRollResult('Событие добавлено', name, location || `Через ${days} дней`);
+}
+
+function getEvents() {
+    const saved = localStorage.getItem(`${activeCharacterId}-events`);
+    return saved ? JSON.parse(saved) : [];
+}
+
+function renderEvents() {
+    const container = document.getElementById('events-container');
+    const events = getEvents();
+
+    if (events.length === 0) {
+        container.innerHTML = `<div class="empty-state">
+            <p>Нет событий. Нажмите "+ Событие" чтобы добавить.</p>
+        </div>`;
+        return;
+    }
+
+    // Сортируем по количеству дней
+    events.sort((a, b) => a.daysLeft - b.daysLeft);
+
+    container.innerHTML = events.map(event => {
+        let statusClass = '';
+        let statusText = '';
+
+        if (event.daysLeft === 0) {
+            statusClass = 'event-today';
+            statusText = 'Сегодня!';
+        } else if (event.daysLeft <= 3) {
+            statusClass = 'event-soon';
+            statusText = `Через ${event.daysLeft} дн.`;
+        } else {
+            statusClass = 'event-future';
+            statusText = `Через ${event.daysLeft} дн.`;
+        }
+
+        return `
+            <div class="event-card ${statusClass}">
+                <div class="event-header">
+                    <div class="event-info">
+                        <h4 class="event-name">${event.name}</h4>
+                        ${event.location ? `<span class="event-location">📍 ${event.location}</span>` : ''}
+                    </div>
+                    <div class="event-controls">
+                        <span class="event-countdown">${statusText}</span>
+                        <button class="event-btn" onclick="advanceEventDay(${event.id}, -1)" title="Вычесть день">−</button>
+                        <button class="event-btn" onclick="advanceEventDay(${event.id}, 1)" title="Добавить день">+</button>
+                        <button class="event-btn delete" onclick="deleteEvent(${event.id})" title="Удалить">×</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function advanceEventDay(eventId, delta) {
+    const events = getEvents();
+    const event = events.find(e => e.id === eventId);
+
+    if (event) {
+        event.daysLeft = Math.max(0, event.daysLeft + delta);
+        localStorage.setItem(`${activeCharacterId}-events`, JSON.stringify(events));
+        renderEvents();
+    }
+}
+
+function deleteEvent(eventId) {
+    if (!confirm('Удалить это событие?')) return;
+
+    const events = getEvents();
+    const filtered = events.filter(e => e.id !== eventId);
+    localStorage.setItem(`${activeCharacterId}-events`, JSON.stringify(filtered));
+    renderEvents();
+}
+
+// === СОСТОЯНИЯ ===
+function openConditionsModal() {
+    document.getElementById('conditions-modal').classList.add('active');
+    loadConditions();
+}
+
+function closeConditionsModal() {
+    document.getElementById('conditions-modal').classList.remove('active');
+}
+
+function updateConditions() {
+    const conditions = [];
+    document.querySelectorAll('.condition-check:checked').forEach(checkbox => {
+        conditions.push(checkbox.dataset.condition);
+    });
+
+    localStorage.setItem(`${activeCharacterId}-conditions`, JSON.stringify(conditions));
+    document.getElementById('conditions-count').textContent = conditions.length;
+}
+
+function loadConditions() {
+    const saved = localStorage.getItem(`${activeCharacterId}-conditions`);
+    const conditions = saved ? JSON.parse(saved) : [];
+
+    document.querySelectorAll('.condition-check').forEach(checkbox => {
+        checkbox.checked = conditions.includes(checkbox.dataset.condition);
+    });
+
+    document.getElementById('conditions-count').textContent = conditions.length;
+}
+
+// Экспорт функций
+window.openHPModal = openHPModal;
+window.closeHPModal = closeHPModal;
+window.healHP = healHP;
+window.damageHP = damageHP;
+window.changeHitDice = changeHitDice;
+window.levelUp = levelUp;
+window.openStatsModal = openStatsModal;
+window.closeStatsModal = closeStatsModal;
+window.saveCharacterStats = saveCharacterStats;
+window.toggleOnlineMode = toggleOnlineMode;
+window.toggleTheme = toggleTheme;
+window.rollAttack = rollAttack;
+window.rollDamage = rollDamage;
+window.rollSneakAttack = rollSneakAttack;
+window.rollSpell = rollSpell;
+window.toggleAddItemForm = toggleAddItemForm;
+window.toggleLearnableFields = toggleLearnableFields;
+window.addInventoryItem = addInventoryItem;
+window.editItem = editItem;
+window.deleteItem = deleteItem;
+window.changeItemCount = changeItemCount;
+window.trainItem = trainItem;
+window.trainAll = trainAll;
+window.saveProgress = saveProgress;
+window.openCharacterList = openCharacterList;
+window.closeCharacterList = closeCharacterList;
+window.deleteCharacter = deleteCharacter;
+window.openCharacterCreator = openCharacterCreator;
+window.closeCharacterCreator = closeCharacterCreator;
+window.goToCreatorStep = goToCreatorStep;
+window.createNewCharacter = createNewCharacter;
+window.toggleInspirationPlayer = toggleInspirationPlayer;
+window.toggleInspirationDM = toggleInspirationDM;
+window.openExhaustionModal = openExhaustionModal;
+window.closeExhaustionModal = closeExhaustionModal;
+window.changeExhaustion = changeExhaustion;
+window.openConditionsModal = openConditionsModal;
+window.closeConditionsModal = closeConditionsModal;
+window.updateConditions = updateConditions;
+window.toggleEventForm = toggleEventForm;
+window.addEvent = addEvent;
+window.advanceEventDay = advanceEventDay;
+window.deleteEvent = deleteEvent;
+window.openTrainingModal = openTrainingModal;
+window.closeTrainingModal = closeTrainingModal;
+
+window.shortRest = function() {
+    document.querySelectorAll('.spell-slot-check').forEach((slot, index) => {
+        slot.checked = false;
+        localStorage.setItem(`spell-slot-${index}`, 'unchecked');
+    });
+
+    showRollResult('Короткий отдых', '✓', 'Слоты заклинаний восстановлены');
+};
+
+window.longRest = function() {
+    // Восстанавливаем хиты
+    localStorage.setItem(`${activeCharacterId}-hp`, character.hpMax);
+    document.getElementById('hp-current-display').textContent = character.hpMax;
+
+    // Восстанавливаем слоты без показа уведомления
+    document.querySelectorAll('.spell-slot-check').forEach((slot, index) => {
+        slot.checked = false;
+        localStorage.setItem(`${activeCharacterId}-spell-slot-${index}`, 'unchecked');
+    });
+
+    // Восстанавливаем кости хитов
+    localStorage.setItem(`${activeCharacterId}-hit-dice`, character.level);
+
+    showRollResult('Длинный отдых', '✓', 'Хиты и слоты полностью восстановлены');
+
+    // Показываем напоминание о тренировке если есть изучаемые предметы
+    const inventoryKey = `${activeCharacterId}-inventory`;
+    const inventory = JSON.parse(localStorage.getItem(inventoryKey)) || defaultInventory;
+    let hasLearnable = false;
+    Object.keys(inventory).forEach(type => {
+        inventory[type].forEach(item => {
+            if (item.learnable && item.progress < item.target) {
+                hasLearnable = true;
+            }
+        });
+    });
+
+    if (hasLearnable) {
+        // Открываем модальное окно обучения
+        setTimeout(() => {
+            openTrainingModal();
+        }, 500);
+    }
+
+    // Уменьшаем истощение на 1 уровень
+    const exhaustion = parseInt(localStorage.getItem(`${activeCharacterId}-exhaustion`) || '0');
+    if (exhaustion > 0) {
+        const newExhaustion = exhaustion - 1;
+        localStorage.setItem(`${activeCharacterId}-exhaustion`, newExhaustion);
+        updateExhaustionDisplay();
+        setTimeout(() => {
+            showRollResult('Истощение', '-1', `Уровень истощения: ${exhaustion} → ${newExhaustion}`);
+        }, 1500);
+    }
+
+    // Уменьшаем дни до событий
+    const events = getEvents();
+    let updatedEvents = false;
+    events.forEach(event => {
+        if (event.daysLeft > 0) {
+            event.daysLeft -= 1;
+            updatedEvents = true;
+        }
+    });
+
+    if (updatedEvents) {
+        localStorage.setItem(`${activeCharacterId}-events`, JSON.stringify(events));
+        renderEvents();
+
+        // Проверяем события на сегодня
+        const todayEvents = events.filter(e => e.daysLeft === 0);
+        if (todayEvents.length > 0) {
+            setTimeout(() => {
+                todayEvents.forEach(event => {
+                    showRollResult('⏰ Событие сегодня!', event.name, event.location || '');
+                });
+            }, 2000);
+        }
+    }
+};
+
+
+// Отображение вкладки обучения (устаревшая - теперь используется модальное окно)
+function renderTraining() {
+    const container = document.getElementById('training-container');
+    if (!container) return; // Контейнер больше не существует
+
+    const inventoryKey = `${activeCharacterId}-inventory`;
+    const inventory = JSON.parse(localStorage.getItem(inventoryKey)) || defaultInventory;
+
+    container.innerHTML = '';
+
+    let hasLearnableItems = false;
+
+    // Собираем все изучаемые предметы
+    Object.keys(inventory).forEach(type => {
+        inventory[type].forEach((item, index) => {
+            if (item.learnable) {
+                hasLearnableItems = true;
+                const div = document.createElement('div');
+                div.className = 'training-card';
+
+                const progress = Math.min(100, (item.progress / item.target * 100));
+                const isMastered = item.progress >= item.target;
+
+                let statusText = '';
+                let statusClass = '';
+                if (isMastered) {
+                    statusText = 'Освоено!';
+                    statusClass = 'status-mastered';
+                } else if (item.progress === 0) {
+                    statusText = 'Не начато';
+                    statusClass = 'status-not-started';
+                } else {
+                    statusText = `Прогресс: ${item.progress}/${item.target}`;
+                    statusClass = 'status-in-progress';
+                }
+
+                div.innerHTML = `
+                    <div class="training-header">
+                        <h4>${item.name}</h4>
+                        <span class="training-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="training-progress">
+                        <div class="training-bar">
+                            <div class="training-bar-fill" style="width: ${progress}%"></div>
+                        </div>
+                        <div class="training-info">
+                            <span>${item.dice} + ${item.ability.toUpperCase()}</span>
+                            <span>${Math.floor(progress)}%</span>
+                        </div>
+                    </div>
+                    <div class="training-manual">
+                        <label>Прогресс вручную:</label>
+                        <div class="manual-progress-controls">
+                            <input type="number" class="progress-input" value="${item.progress}" min="0" max="${item.target}" id="progress-${type}-${index}">
+                            <span class="progress-max">/ ${item.target}</span>
+                            <button class="btn-save-progress" onclick="saveProgress('${type}', ${index})">💾</button>
+                        </div>
+                    </div>
                     ${!isMastered ? `<button class="btn-train" onclick="trainItem('${type}', ${index})" data-i18n="train">Тренировать</button>` : ''}
                 `;
 
@@ -1467,12 +1722,33 @@ function renderTraining() {
 
     if (!hasLearnableItems) {
         container.innerHTML = `<div class="empty-state">
-            <p>${appSettings.language === 'en' ? 'No learnable items yet. Add some from the Inventory tab!' : 'Нет изучаемых предметов. Добавьте их во вкладке Инвентарь!'}</p>
+            <p>${'Нет изучаемых предметов. Добавьте их во вкладке Инвентарь!'}</p>
         </div>`;
     }
+}
 
-    // Применяем переводы к кнопкам
-    applyLanguage(appSettings.language);
+// Сохранение прогресса вручную
+function saveProgress(type, index) {
+    const inventoryKey = `${activeCharacterId}-inventory`;
+    const inventory = JSON.parse(localStorage.getItem(inventoryKey)) || defaultInventory;
+    const item = inventory[type][index];
+
+    const input = document.getElementById(`progress-${type}-${index}`);
+    const newProgress = parseInt(input.value);
+
+    if (isNaN(newProgress) || newProgress < 0) {
+        showRollResult('Ошибка', 'Некорректное значение', '');
+        return;
+    }
+
+    const oldProgress = item.progress;
+    item.progress = Math.min(newProgress, item.target);
+
+    localStorage.setItem(inventoryKey, JSON.stringify(inventory));
+    renderTraining();
+    renderInventory();
+
+    showRollResult('Прогресс обновлён', `${oldProgress} → ${item.progress}`, item.name);
 }
 
 // Тренировка одного предмета
@@ -1578,10 +1854,4 @@ function trainAll() {
     }, trained * 1000 + 500);
 }
 
-console.log('🎲 Таборакс - лист персонажа загружен!');
-console.log('⚙️ Все функции доступны');
-
-// Показываем уведомление что все загружено
-setTimeout(() => {
-    showRollResult('✓ Готово', 'Приложение загружено', 'Все функции работают');
-}, 500);
+console.log('🎲 Интерактивный лист персонажа загружен!');

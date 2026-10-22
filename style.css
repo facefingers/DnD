@@ -5,13 +5,13 @@
 }
 
 :root {
-    --color-primary: #cd9c6e;
+    --color-primary: #ff9f40;
     --color-bg: #f8f8f8;
     --color-card: #ffffff;
     --color-text: #1a1a1a;
     --color-text-secondary: #999999;
     --color-border: #e5e5e5;
-    --color-highlight: #cd9c6e;
+    --color-highlight: #ff9f40;
     --color-red: #ef4444;
     --color-green: #22c55e;
     --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -35,7 +35,14 @@ body.dark-theme .inventory-item,
 body.dark-theme .action-card,
 body.dark-theme .feature-card,
 body.dark-theme .note-card,
-body.dark-theme .main-stats {
+body.dark-theme .main-stats,
+body.dark-theme .stat-card,
+body.dark-theme .combat-phase,
+body.dark-theme .btn-rest,
+body.dark-theme .exhaustion-item,
+body.dark-theme .condition-item,
+body.dark-theme .event-card,
+body.dark-theme .event-btn {
     background: var(--color-card);
 }
 
@@ -171,6 +178,84 @@ body {
     font-weight: 600;
 }
 
+/* Secondary Stats (Inspiration, Exhaustion, Conditions) */
+.secondary-stats {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.stat-card {
+    flex: 1;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.stat-card.clickable {
+    cursor: pointer;
+}
+
+.stat-card.clickable:hover {
+    background: var(--color-bg);
+    border-color: var(--color-primary);
+}
+
+.stat-card-label {
+    font-size: 0.7rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+/* Inspiration Buttons */
+.inspiration-btn {
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.inspiration-btn:hover {
+    border-color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.inspiration-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.inspiration-btn.active .inspiration-icon {
+    filter: brightness(0) invert(1);
+}
+
+.inspiration-icon {
+    font-size: 1rem;
+}
+
 /* Tabs */
 .tabs {
     display: flex;
@@ -257,6 +342,7 @@ body {
     text-align: center;
     font-size: 0.9375rem;
     border-top: 1px solid var(--color-border);
+    font-weight: 300; /* Тонкий шрифт для значений и спасбросков */
 }
 
 .abilities-table .row-label {
@@ -267,12 +353,22 @@ body {
 }
 
 .abilities-table .modifier-row td {
-    font-weight: 600;
+    font-weight: 700; /* Жирный шрифт для модификаторов */
+    font-size: 1.125rem; /* Чуть крупнее */
+}
+
+.abilities-table .modifier-row .row-label {
+    font-weight: 500; /* Лейбл остается нормальным */
+    font-size: 0.8125rem;
 }
 
 .abilities-table td.highlight {
     color: var(--color-primary);
-    font-weight: 600;
+}
+
+.abilities-table .modifier-row td.highlight {
+    color: var(--color-primary);
+    font-weight: 700;
 }
 
 /* Info Boxes */
@@ -404,16 +500,43 @@ body {
 
 /* Spell Stats */
 .spell-stats {
-    display: flex;
-    gap: 1rem;
-    padding: 1rem;
-    background: var(--color-bg);
-    border-radius: 8px;
-    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 
 .spell-stat {
+    padding: 0.875rem;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
     font-size: 0.875rem;
+    text-align: center;
+}
+
+.spell-stat strong {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 0.375rem;
+}
+
+.spell-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+}
+
+.spell-stat-formula {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    font-weight: 400;
+    line-height: 1.4;
 }
 
 .spell-slots {
@@ -1237,6 +1360,360 @@ body:not(.online-mode) .weapon-rolls {
     transform: scale(0.95);
 }
 
+/* Rest Section */
+.rest-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.rest-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    color: var(--color-text);
+}
+
+.rest-buttons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn-rest {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-rest:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg);
+}
+
+.btn-rest:active {
+    transform: scale(0.95);
+}
+
+.btn-rest.short {
+    border-color: var(--color-primary);
+}
+
+.btn-rest.long {
+    border-color: var(--color-primary);
+}
+
+.rest-icon {
+    font-size: 1.5rem;
+}
+
+.rest-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+/* Exhaustion Modal */
+.exhaustion-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--color-bg);
+    border-radius: 8px;
+}
+
+.exhaustion-controls label {
+    font-weight: 600;
+}
+
+.exhaustion-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.exhaustion-item {
+    padding: 0.75rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-text-secondary);
+    transition: all 0.2s ease;
+}
+
+.exhaustion-item.active {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: var(--color-red);
+    color: var(--color-red);
+    font-weight: 600;
+}
+
+/* Conditions Modal */
+.conditions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.condition-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.condition-item:hover {
+    background: white;
+    border-color: var(--color-primary);
+}
+
+.condition-check {
+    margin-top: 0.25rem;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+}
+
+.condition-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.condition-info strong {
+    color: var(--color-text);
+    font-size: 0.95rem;
+}
+
+.condition-effect {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+}
+
+.modal-description {
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.modal-note {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(205, 156, 110, 0.1);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 4px;
+    font-size: 0.875rem;
+    color: var(--color-text);
+}
+
+/* Combat Guide */
+.combat-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.combat-phase {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.combat-phase.special {
+    background: rgba(205, 156, 110, 0.05);
+    border-color: var(--color-primary);
+}
+
+.combat-phase-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    color: var(--color-text);
+}
+
+.combat-desc {
+    margin: 0.5rem 0;
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+.combat-desc-small {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin: 0.5rem 0;
+}
+
+.combat-action-type {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--color-bg);
+    border-radius: 8px;
+}
+
+.action-type-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-primary);
+}
+
+.action-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+}
+
+.action-list li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    position: relative;
+    color: var(--color-text);
+    line-height: 1.5;
+}
+
+.action-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.action-list strong {
+    color: var(--color-text);
+}
+
+/* Event Tracker */
+#events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.event-card {
+    background: white;
+    border: 2px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+.event-card.event-today {
+    border-color: var(--color-red);
+    background: rgba(239, 68, 68, 0.05);
+}
+
+.event-card.event-soon {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.05);
+}
+
+.event-card.event-future {
+    border-color: var(--color-primary);
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.event-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.event-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-text);
+}
+
+.event-location {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+}
+
+.event-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.event-countdown {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.event-today .event-countdown {
+    background: var(--color-red);
+    color: white;
+}
+
+.event-soon .event-countdown {
+    background: #f59e0b;
+    color: white;
+}
+
+.event-future .event-countdown {
+    background: var(--color-primary);
+    color: white;
+}
+
+.event-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--color-border);
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.event-btn:hover {
+    background: var(--color-bg);
+    border-color: var(--color-primary);
+}
+
+.event-btn.delete {
+    color: var(--color-red);
+    border-color: var(--color-red);
+}
+
+.event-btn.delete:hover {
+    background: var(--color-red);
+    color: white;
+}
+
 /* Training Cards */
 .training-description {
     color: var(--color-text-secondary);
@@ -1332,6 +1809,60 @@ body:not(.online-mode) .weapon-rolls {
 
 .btn-train:active {
     transform: scale(0.98);
+}
+
+.training-manual {
+    margin: 1rem 0;
+    padding: 0.75rem;
+    background: var(--color-bg);
+    border-radius: 8px;
+}
+
+.training-manual label {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.manual-progress-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.progress-input {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    font-size: 1rem;
+    text-align: center;
+    font-family: var(--font-main);
+}
+
+.progress-max {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.btn-save-progress {
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: var(--color-primary);
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.125rem;
+    transition: all 0.2s ease;
+}
+
+.btn-save-progress:hover {
+    opacity: 0.9;
+}
+
+.btn-save-progress:active {
+    transform: scale(0.95);
 }
 
 .empty-state {

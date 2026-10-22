@@ -1,0 +1,569 @@
+/* ВАРИАНТ 2: "МИНИМАЛИСТИЧНЫЙ PRO" */
+/* Современный, чистый, с акцентами золота, четкая типографика */
+
+:root {
+    /* Основная палитра - более контрастная */
+    --color-primary: #ff9f40;
+    --color-primary-dark: #fb8c00;
+    --color-primary-light: #ffcc80;
+
+    --color-bg: #fafafa;
+    --color-card: #ffffff;
+    --color-text: #1a1a1a;
+    --color-text-secondary: #737373;
+    --color-border: #e5e5e5;
+
+    /* Акцентные цвета - более сдержанные */
+    --color-success: #10b981;
+    --color-danger: #ef4444;
+    --color-warning: #f59e0b;
+    --color-info: #3b82f6;
+
+    --color-green: #10b981;
+    --color-red: #ef4444;
+    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body.dark-theme {
+    --color-bg: #0f0f0f;
+    --color-card: #1a1a1a;
+    --color-text: #fafafa;
+    --color-text-secondary: #a3a3a3;
+    --color-border: #2d2d2d;
+}
+
+body {
+    background: var(--color-bg);
+    letter-spacing: -0.01em;
+}
+
+/* Шапка - плоская, четкая */
+.header {
+    background: var(--color-card);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.character-name {
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.back-btn,
+.header-icon-btn {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    transition: all 0.2s;
+}
+
+.back-btn:hover,
+.header-icon-btn:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.header-icon-btn.active {
+    background: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+/* Основные статы - сетка */
+.main-stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--color-border);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.main-stat {
+    text-align: center;
+    padding: 1rem 0.5rem;
+    background: var(--color-card);
+    transition: all 0.2s;
+    position: relative;
+}
+
+.main-stat.clickable:hover {
+    background: var(--color-primary-light);
+    cursor: pointer;
+}
+
+.main-stat.clickable:hover .main-stat-value {
+    color: var(--color-primary-dark);
+}
+
+.main-stat-label {
+    font-size: 0.6875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.main-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+/* Дополнительные статы */
+.secondary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.stat-card {
+    background: var(--color-card);
+    padding: 0.875rem;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.stat-card.clickable:hover {
+    background: var(--color-bg);
+    cursor: pointer;
+}
+
+.stat-card-label {
+    font-size: 0.6875rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.stat-card-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Кнопки вдохновения */
+.inspiration-btn {
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    transition: all 0.2s;
+}
+
+.inspiration-btn:hover {
+    border-color: var(--color-primary);
+}
+
+.inspiration-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* Вкладки - минималистичные */
+.tabs {
+    display: flex;
+    background: var(--color-card);
+    overflow-x: auto;
+    position: sticky;
+    top: 57px;
+    z-index: 99;
+    border-bottom: 1px solid var(--color-border);
+    gap: 0.5rem;
+    padding: 0 1rem;
+}
+
+.tab {
+    padding: 1rem 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.tab:hover {
+    color: var(--color-primary);
+}
+
+.tab.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* Контент */
+.content {
+    padding: 1.5rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* Таблица характеристик */
+.abilities-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 1.5rem;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.abilities-table th {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.875rem 0.5rem;
+    text-align: center;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--color-bg);
+}
+
+.abilities-table td {
+    padding: 0.875rem 0.5rem;
+    text-align: center;
+    font-size: 0.9375rem;
+    border-top: 1px solid var(--color-border);
+    font-weight: 400;
+}
+
+.abilities-table .row-label {
+    text-align: left;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-left: 1rem;
+}
+
+.abilities-table .modifier-row td {
+    font-weight: 800;
+    font-size: 1.375rem;
+    color: var(--color-text);
+}
+
+.abilities-table td.highlight {
+    color: var(--color-primary);
+}
+
+/* Карточки - плоские с тенями */
+.action-card,
+.inventory-item,
+.training-card,
+.feature-card,
+.note-card,
+.event-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.action-card:hover,
+.inventory-item:hover,
+.training-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(205, 156, 110, 0.15);
+}
+
+.action-card h4,
+.inventory-item h4,
+.training-card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: var(--color-text);
+}
+
+/* Кнопки - четкие, акцентные */
+.add-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.625rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+    letter-spacing: -0.01em;
+}
+
+.add-btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(205, 156, 110, 0.3);
+}
+
+.btn-train {
+    background: var(--color-primary);
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-train:hover {
+    background: var(--color-primary-dark);
+}
+
+.btn-heal {
+    background: var(--color-success);
+}
+
+.btn-heal:hover {
+    background: #059669;
+}
+
+.btn-damage {
+    background: var(--color-danger);
+}
+
+.btn-damage:hover {
+    background: #dc2626;
+}
+
+/* Прогресс-бары */
+.training-bar {
+    height: 6px;
+    background: var(--color-border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.training-bar-fill {
+    height: 100%;
+    background: var(--color-primary);
+    transition: width 0.5s ease;
+}
+
+.training-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+}
+
+/* Статусы */
+.training-status {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.625rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-mastered {
+    background: var(--color-success);
+    color: white;
+}
+
+.status-in-progress {
+    background: var(--color-primary);
+    color: white;
+}
+
+.status-not-started {
+    background: var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+/* События */
+.event-card {
+    border-left: 3px solid var(--color-border);
+}
+
+.event-card.event-today {
+    border-left-color: var(--color-danger);
+    background: rgba(239, 68, 68, 0.03);
+}
+
+.event-card.event-soon {
+    border-left-color: var(--color-warning);
+    background: rgba(245, 158, 11, 0.03);
+}
+
+.event-card.event-future {
+    border-left-color: var(--color-primary);
+}
+
+.event-countdown {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.375rem 0.75rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.event-today .event-countdown {
+    background: var(--color-danger);
+    color: white;
+}
+
+.event-soon .event-countdown {
+    background: var(--color-warning);
+    color: white;
+}
+
+.event-future .event-countdown {
+    background: var(--color-primary);
+    color: white;
+}
+
+/* Модальные окна */
+.modal {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    border: 1px solid var(--color-border);
+    max-width: 500px;
+}
+
+.modal-header {
+    background: var(--color-card);
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 16px 16px 0 0;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: var(--color-text);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.close-btn {
+    background: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+}
+
+.close-btn:hover {
+    background: var(--color-danger);
+    border-color: var(--color-danger);
+    color: white;
+}
+
+/* Информационные боксы */
+.info-box {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-primary);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+/* Бой - секции */
+.combat-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.combat-phase {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.combat-phase.special {
+    background: var(--color-bg);
+    border-left: 3px solid var(--color-primary);
+}
+
+.combat-phase-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.75rem 0;
+    color: var(--color-text);
+}
+
+/* Чипы слотов заклинаний */
+.spell-slots {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.slot input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-primary);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.slot input[type="checkbox"]:checked {
+    background: var(--color-primary);
+}
+
+/* Адаптив */
+@media (max-width: 640px) {
+    .main-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .main-stats .main-stat:nth-child(4),
+    .main-stats .main-stat:nth-child(5) {
+        grid-column: span 1;
+    }
+
+    .content {
+        padding: 1rem 0.75rem;
+    }
+}

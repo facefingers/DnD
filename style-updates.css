@@ -1,0 +1,535 @@
+/* Дополнительные стили для обновлений интерфейса */
+
+/* === ЦВЕТОВАЯ ПАЛИТРА ДЛЯ КАТЕГОРИЙ === */
+:root {
+    /* Инвентарь */
+    --color-weapon: #e74c3c;        /* Красный - оружие */
+    --color-armor: #3498db;         /* Синий - доспехи */
+    --color-tool: #f39c12;          /* Оранжевый - инструменты */
+    --color-consumable: #2ecc71;    /* Зелёный - расходники */
+    --color-ingredient: #9b59b6;    /* Фиолетовый - ингредиенты */
+    --color-misc: #95a5a6;          /* Серый - разное */
+
+    /* Магия */
+    --color-cantrip: #16a085;       /* Бирюзовый - заговоры */
+    --color-spell-1: #3498db;       /* Синий - 1 уровень */
+    --color-spell-2: #9b59b6;       /* Фиолетовый - 2 уровень */
+    --color-spell-3: #e74c3c;       /* Красный - 3 уровень */
+
+    /* Черты и заметки */
+    --color-racial: #f39c12;        /* Оранжевый - расовые */
+    --color-class: #e74c3c;         /* Красный - классовые */
+    --color-personality: #9b59b6;   /* Фиолетовый - личность */
+    --color-info: #3498db;          /* Синий - информация */
+    --color-event: var(--color-primary); /* Оранжевый - события */
+}
+
+body.dark-theme {
+    /* Слегка приглушённые цвета для тёмной темы */
+    --color-weapon: #c0392b;
+    --color-armor: #2980b9;
+    --color-tool: #d68910;
+    --color-consumable: #27ae60;
+    --color-ingredient: #8e44ad;
+    --color-misc: #7f8c8d;
+    --color-cantrip: #138d75;
+    --color-spell-1: #2980b9;
+    --color-spell-2: #8e44ad;
+    --color-spell-3: #c0392b;
+    --color-racial: #d68910;
+    --color-class: #c0392b;
+    --color-personality: #8e44ad;
+    --color-info: #2980b9;
+}
+
+/* Кнопки отдыха */
+.rest-bar {
+    display: flex;
+    gap: 1px;
+    background: var(--color-border);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.rest-bar-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1rem;
+    background: var(--color-card);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-main);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.rest-bar-btn:hover {
+    background: var(--color-primary);
+    color: white;
+}
+
+.rest-bar-btn:active {
+    transform: scale(0.98);
+}
+
+.rest-bar-icon {
+    font-size: 1.25rem;
+}
+
+.rest-bar-label {
+    font-size: 0.875rem;
+}
+
+/* Компактные состояния */
+.conditions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.condition-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.5rem 0.75rem;
+    padding: 0.75rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-items: start;
+}
+
+.condition-item:hover {
+    background: var(--color-card);
+    border-color: var(--color-primary);
+}
+
+.condition-check {
+    grid-row: 1;
+    grid-column: 1;
+    margin: 0;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin-top: 0.125rem;
+}
+
+.condition-name {
+    grid-row: 1;
+    grid-column: 2;
+    color: var(--color-text);
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.condition-effect {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.4;
+    padding-left: 0;
+}
+
+.condition-info {
+    /* Старый класс - больше не используется */
+    display: none;
+}
+
+/* Прячем секцию отдыха из модального окна HP */
+.hp-modal-body .rest-section {
+    display: none;
+}
+
+/* === ЦВЕТОВАЯ ИНДИКАЦИЯ ИНВЕНТАРЯ === */
+.inventory-item[data-category="weapon"],
+.inventory-item.category-weapon {
+    border-left: 3px solid var(--color-weapon);
+    background: rgba(231, 76, 60, 0.03);
+}
+
+.inventory-item[data-category="armor"],
+.inventory-item.category-armor {
+    border-left: 3px solid var(--color-armor);
+    background: rgba(52, 152, 219, 0.03);
+}
+
+.inventory-item[data-category="tool"],
+.inventory-item.category-tool {
+    border-left: 3px solid var(--color-tool);
+    background: rgba(243, 156, 18, 0.03);
+}
+
+.inventory-item[data-category="consumable"],
+.inventory-item.category-consumable {
+    border-left: 3px solid var(--color-consumable);
+    background: rgba(46, 204, 113, 0.03);
+}
+
+.inventory-item[data-category="ingredient"],
+.inventory-item.category-ingredient {
+    border-left: 3px solid var(--color-ingredient);
+    background: rgba(155, 89, 182, 0.03);
+}
+
+.inventory-item[data-category="misc"],
+.inventory-item.category-misc {
+    border-left: 3px solid var(--color-misc);
+    background: rgba(149, 165, 166, 0.03);
+}
+
+/* Бейджи категорий */
+.item-category {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text); /* Текст всегда чёрный */
+}
+
+.category-weapon { background: rgba(231, 76, 60, 0.1); }
+.category-armor { background: rgba(52, 152, 219, 0.1); }
+.category-tool { background: rgba(243, 156, 18, 0.1); }
+.category-consumable { background: rgba(46, 204, 113, 0.1); }
+.category-ingredient { background: rgba(155, 89, 182, 0.1); }
+.category-misc { background: rgba(149, 165, 166, 0.1); }
+
+/* === ЦВЕТОВАЯ ИНДИКАЦИЯ МАГИИ === */
+.action-card.spell-cantrip {
+    border-left: 3px solid var(--color-cantrip);
+    background: rgba(22, 160, 133, 0.03);
+}
+
+.action-card.spell-level-1 {
+    border-left: 3px solid var(--color-spell-1);
+    background: rgba(52, 152, 219, 0.03);
+}
+
+.action-card.spell-level-2 {
+    border-left: 3px solid var(--color-spell-2);
+    background: rgba(155, 89, 182, 0.03);
+}
+
+.action-card.spell-level-3 {
+    border-left: 3px solid var(--color-spell-3);
+    background: rgba(231, 76, 60, 0.03);
+}
+
+/* Бейджи уровней заклинаний */
+.spell-level-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge-cantrip {
+    background: rgba(22, 160, 133, 0.1);
+    color: var(--color-cantrip);
+}
+
+.badge-spell-1 {
+    background: rgba(52, 152, 219, 0.1);
+    color: var(--color-spell-1);
+}
+
+.badge-spell-2 {
+    background: rgba(155, 89, 182, 0.1);
+    color: var(--color-spell-2);
+}
+
+.badge-spell-3 {
+    background: rgba(231, 76, 60, 0.1);
+    color: var(--color-spell-3);
+}
+
+/* === ЦВЕТОВАЯ ИНДИКАЦИЯ ЧЕРТ И ЗАМЕТОК === */
+.feature-card.feature-racial {
+    border-left: 3px solid var(--color-racial);
+    background: rgba(243, 156, 18, 0.03);
+}
+
+.feature-card.feature-class {
+    border-left: 3px solid var(--color-class);
+    background: rgba(231, 76, 60, 0.03);
+}
+
+.feature-card.feature-personality {
+    border-left: 3px solid var(--color-personality);
+    background: rgba(155, 89, 182, 0.03);
+}
+
+.note-card.note-info {
+    border-left: 3px solid var(--color-info);
+    background: rgba(52, 152, 219, 0.03);
+}
+
+.event-card {
+    border-left: 3px solid var(--color-event);
+    background: rgba(255, 159, 64, 0.03);
+}
+
+/* Заголовки секций - текст чёрный */
+.section-title.title-racial,
+.section-title.title-class,
+.section-title.title-personality,
+.section-title.title-info {
+    color: var(--color-text-secondary); /* Серый текст как у остальных заголовков */
+}
+
+/* === ПАСТЕЛЬНЫЕ ФОНЫ ДЛЯ ТЁМНОЙ ТЕМЫ === */
+body.dark-theme .inventory-item.category-weapon {
+    background: rgba(192, 57, 43, 0.08);
+}
+
+body.dark-theme .inventory-item.category-armor {
+    background: rgba(41, 128, 185, 0.08);
+}
+
+body.dark-theme .inventory-item.category-tool {
+    background: rgba(214, 137, 16, 0.08);
+}
+
+body.dark-theme .inventory-item.category-consumable {
+    background: rgba(39, 174, 96, 0.08);
+}
+
+body.dark-theme .inventory-item.category-ingredient {
+    background: rgba(142, 68, 173, 0.08);
+}
+
+body.dark-theme .inventory-item.category-misc {
+    background: rgba(127, 140, 141, 0.08);
+}
+
+body.dark-theme .action-card.spell-cantrip {
+    background: rgba(19, 141, 117, 0.08);
+}
+
+body.dark-theme .action-card.spell-level-1 {
+    background: rgba(41, 128, 185, 0.08);
+}
+
+body.dark-theme .action-card.spell-level-2 {
+    background: rgba(142, 68, 173, 0.08);
+}
+
+body.dark-theme .action-card.spell-level-3 {
+    background: rgba(192, 57, 43, 0.08);
+}
+
+body.dark-theme .feature-card.feature-racial {
+    background: rgba(214, 137, 16, 0.08);
+}
+
+body.dark-theme .feature-card.feature-class {
+    background: rgba(192, 57, 43, 0.08);
+}
+
+body.dark-theme .feature-card.feature-personality {
+    background: rgba(142, 68, 173, 0.08);
+}
+
+body.dark-theme .note-card.note-info {
+    background: rgba(41, 128, 185, 0.08);
+}
+
+body.dark-theme .event-card {
+    background: rgba(251, 140, 0, 0.08);
+}
+
+/* === ДЕНЬГИ - Компактная полоса === */
+.money-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+}
+
+.money-bar-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-size: 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.money-bar-btn:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.money-compact {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 80px;
+}
+
+.money-compact:hover {
+    border-color: var(--color-primary);
+    background: var(--color-card);
+}
+
+.money-compact-icon {
+    font-size: 1.125rem;
+}
+
+.money-compact-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.money-compact-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-left: auto;
+}
+
+/* Модальное окно денег */
+.money-modal-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.money-modal-icon {
+    font-size: 1.25rem;
+}
+
+.money-modal-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    min-width: 28px;
+}
+
+.money-modal-current {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    min-width: 50px;
+    text-align: right;
+}
+
+.money-modal-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: var(--color-primary);
+    border: none;
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.money-modal-btn:hover {
+    background: var(--color-primary-dark);
+}
+
+.money-modal-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-card);
+    color: var(--color-text);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+.money-modal-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.money-modal-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.money-modal-buttons .btn-cancel,
+.money-modal-buttons .btn-save {
+    flex: 1;
+    padding: 0.875rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+}
+
+/* Адаптив для денег */
+@media (max-width: 480px) {
+    .money-bar {
+        gap: 0.25rem;
+        padding: 0.5rem;
+    }
+
+    .money-compact {
+        min-width: 60px;
+        padding: 0.375rem 0.75rem;
+    }
+
+    .money-bar-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* Адаптив для кнопок отдыха */
+@media (max-width: 480px) {
+    .rest-bar-btn {
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.75rem 0.5rem;
+    }
+
+    .rest-bar-label {
+        font-size: 0.75rem;
+    }
+}
